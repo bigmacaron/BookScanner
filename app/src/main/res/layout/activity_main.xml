@@ -14,20 +14,23 @@
         android:layout_height="match_parent"
         tools:context=".activites.MainActivity">
 
+
         <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            />
 
         <FrameLayout
             android:id="@+id/drawer_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            bindDrawerType="@{type}"
             android:choiceMode="singleChoice"
             android:divider="@color/black"
             android:dividerHeight="1dp" />
 
-<!--        bindDrawerType="@{type}"-->
+
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

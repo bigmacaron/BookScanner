@@ -10,7 +10,7 @@ class Constants {
         const val BASE_DOMAIN                  = "https://api.base.com"
         // Drawer Direction
         const val DRAWER_TYPE                  = GravityCompat.END        //START,END
-        const val DRAWER_TYPE_STRING           = "start"                    //START,END
+        const val DRAWER_TYPE_STRING           = "end"                    //START,END
     }
 
     // Intent Extras Key
