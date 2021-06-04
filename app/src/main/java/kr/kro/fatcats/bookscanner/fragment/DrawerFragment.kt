@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import kr.kro.fatcats.bookscanner.R
+import kr.kro.fatcats.bookscanner.activites.MainActivity
 import kr.kro.fatcats.bookscanner.databinding.FragmentDrawerBinding
 
-class DrawerFragment : Fragment() {
+class DrawerFragment : Fragment(){
+
 
     private lateinit var binding: FragmentDrawerBinding
 
@@ -24,20 +26,14 @@ class DrawerFragment : Fragment() {
     }
 
     private fun initView() {
-
+        clickListeners()
     }
 
-
-
-
-
-
-
-
-
-
-
-
+    private fun clickListeners(){
+        binding.ivCloseDrawer.setOnClickListener {
+            (activity as MainActivity).closeDrawer()
+        }
+    }
 
     companion object {
         private val TAG = DrawerFragment::class.java.simpleName

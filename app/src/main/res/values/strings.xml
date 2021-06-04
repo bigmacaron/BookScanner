@@ -6,10 +6,15 @@
     <string name="content_nav_home">메인</string>
     <string name="content_nav_home2">서브</string>
 
-
-
     <!-- Content Of Images Description -->
     <string name="content_description_image_close">닫기 이미지</string>
     <string name="content_description_image_logo">로고 이미지</string>
+
+    <!-- Permission Message -->
+    <string name="content_permission_request">앱의 기능을 사용하기 위해서는 권한이 필요합니다.</string>
+    <string name="content_button_confirm">확인</string>
+    <string name="content_permission_request_settings">[설정] > [권한] 에서 권환을 허용할 수 있습니다.</string>
+    <string name="content_alert_negative_of_mobile_data">허용안함</string>
+
 
 </resources>

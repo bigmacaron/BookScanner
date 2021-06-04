@@ -3,27 +3,32 @@ package kr.kro.fatcats.bookscanner.activites
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
-import androidx.core.view.GravityCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kr.kro.fatcats.bookscanner.listeners.OnFragmentInteractionListener
+import kr.kro.fatcats.bookscanner.BR
 import kr.kro.fatcats.bookscanner.R
+import kr.kro.fatcats.bookscanner.databinding.ActivityMainBinding
 import kr.kro.fatcats.bookscanner.fragment.ContentFragment
 import kr.kro.fatcats.bookscanner.fragment.DrawerFragment
+import kr.kro.fatcats.bookscanner.util.Constants
+import kr.kro.fatcats.bookscanner.util.bindViewDrawerType
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.yesButton
 
 class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
 
+    private lateinit var binding : ActivityMainBinding
     private var fragment: Fragment? = null
     private var ordSorFrag: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        bindViewDrawerType(binding.drawerFrame, "start")
         initView(savedInstanceState)
         moveSplash()
     }
@@ -57,7 +62,8 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
 
     override fun openDrawer() {
         Log.d(TAG, "openDrawer()...")
-        layout_drawer.openDrawer(GravityCompat.END)
+        
+        layout_drawer.openDrawer(Constants.DRAWER_TYPE)
     }
 
     override fun closeDrawer() {
@@ -70,8 +76,8 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
     }
 
     private fun finishAlert() {
-        Log.v(TAG, "drawer2 => ${layout_drawer.isDrawerOpen(GravityCompat.END)}")
-        if (layout_drawer.isDrawerOpen(GravityCompat.END)) {
+        Log.v(TAG, "drawer2 => ${layout_drawer.isDrawerOpen(Constants.DRAWER_TYPE)}")
+        if (layout_drawer.isDrawerOpen(Constants.DRAWER_TYPE)) {
             closeDrawer()
             return
         }
