@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">BookScanner</string>
+
+    <!-- Content Of Navigation -->
+    <string name="content_drawer">네비게이션</string>
+    <string name="content_nav_home">메인</string>
+    <string name="content_nav_home2">서브</string>
+
+
+
+    <!-- Content Of Images Description -->
+    <string name="content_description_image_close">닫기 이미지</string>
+    <string name="content_description_image_logo">로고 이미지</string>
+
+</resources>
