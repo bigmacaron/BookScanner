@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_main.*
 import kr.kro.fatcats.bookscanner.listeners.OnFragmentInteractionListener
 import kr.kro.fatcats.bookscanner.BR
@@ -13,6 +14,9 @@ import kr.kro.fatcats.bookscanner.R
 import kr.kro.fatcats.bookscanner.databinding.ActivityMainBinding
 import kr.kro.fatcats.bookscanner.fragment.ContentFragment
 import kr.kro.fatcats.bookscanner.fragment.DrawerFragment
+import kr.kro.fatcats.bookscanner.model.BookModelFactory
+import kr.kro.fatcats.bookscanner.model.BookModelRepository
+import kr.kro.fatcats.bookscanner.model.BookViewModel
 import kr.kro.fatcats.bookscanner.util.Constants
 import kr.kro.fatcats.bookscanner.util.bindViewDrawerType
 import org.jetbrains.anko.alert
@@ -24,11 +28,18 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
     private lateinit var binding : ActivityMainBinding
     private var fragment: Fragment? = null
     private var ordSorFrag: Fragment? = null
+    lateinit var mViewModel: BookViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        bindViewDrawerType(binding.drawerFrame, "start")
+        binding = ActivityMainBinding.inflate(layoutInflater).apply {
+            this@MainActivity.let {
+                val mBookViewModelFactory = BookModelFactory(BookModelRepository())
+                mViewModel = ViewModelProvider(it,mBookViewModelFactory).get(BookViewModel::class.java)
+//                viewModel = mVideoViewModel
+                lifecycleOwner = this@MainActivity
+            }
+        }
         initView(savedInstanceState)
         moveSplash()
     }
@@ -49,6 +60,7 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
             fragment = fm.findFragmentById(R.id.content_frame)
             ordSorFrag = fm.findFragmentById(R.id.drawer_frame)
         }
+
     }
 
     private fun moveSplash() {
