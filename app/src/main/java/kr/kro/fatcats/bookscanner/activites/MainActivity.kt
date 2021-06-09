@@ -3,22 +3,20 @@ package kr.kro.fatcats.bookscanner.activites
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.databinding.DataBindingUtil
+import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_main.*
 import kr.kro.fatcats.bookscanner.listeners.OnFragmentInteractionListener
-import kr.kro.fatcats.bookscanner.BR
 import kr.kro.fatcats.bookscanner.R
+import kr.kro.fatcats.bookscanner.api.BookRepository
 import kr.kro.fatcats.bookscanner.databinding.ActivityMainBinding
 import kr.kro.fatcats.bookscanner.fragment.ContentFragment
 import kr.kro.fatcats.bookscanner.fragment.DrawerFragment
-import kr.kro.fatcats.bookscanner.model.BookModelFactory
-import kr.kro.fatcats.bookscanner.model.BookModelRepository
 import kr.kro.fatcats.bookscanner.model.BookViewModel
+import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
 import kr.kro.fatcats.bookscanner.util.Constants
-import kr.kro.fatcats.bookscanner.util.bindViewDrawerType
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.yesButton
@@ -28,18 +26,20 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
     private lateinit var binding : ActivityMainBinding
     private var fragment: Fragment? = null
     private var ordSorFrag: Fragment? = null
-    lateinit var mViewModel: BookViewModel
+    private lateinit var mBookViewModel: BookViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).apply {
             this@MainActivity.let {
-                val mBookViewModelFactory = BookModelFactory(BookModelRepository())
-                mViewModel = ViewModelProvider(it,mBookViewModelFactory).get(BookViewModel::class.java)
-//                viewModel = mVideoViewModel
+                mBookViewModel = ViewModelProvider(this@MainActivity,BookViewModelFactory(BookRepository())).get(BookViewModel::class.java)
                 lifecycleOwner = this@MainActivity
             }
+
         }
+
+        setContentView(binding.root)
         initView(savedInstanceState)
         moveSplash()
     }

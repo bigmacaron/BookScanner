@@ -7,7 +7,7 @@ class Constants {
 
     companion object {
         // Server API IP
-        const val BASE_DOMAIN                  = "https://api.base.com"
+        const val BASE_DOMAIN                  = "https://api.gongmanse.com"
         // Drawer Direction
         const val DRAWER_TYPE                  = GravityCompat.END        //START,END
         const val DRAWER_TYPE_STRING           = "end"                    //START,END

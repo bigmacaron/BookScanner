@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.zxing.ResultPoint
 import com.gun0912.tedpermission.PermissionListener
@@ -16,7 +18,10 @@ import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.CaptureManager
 import kr.kro.fatcats.bookscanner.R
 import kr.kro.fatcats.bookscanner.BR
+import kr.kro.fatcats.bookscanner.api.BookRepository
 import kr.kro.fatcats.bookscanner.databinding.FragmentSubBinding
+import kr.kro.fatcats.bookscanner.model.BookViewModel
+import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
 import org.jetbrains.anko.support.v4.toast
 
 class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
@@ -24,9 +29,13 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
     private lateinit var binding: FragmentSubBinding
     private lateinit var capture : CaptureManager
     private var readBarcode : String? = null
+    private lateinit var mBookViewModel: BookViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sub, container, false)
+//        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sub, container, false)
+        binding= FragmentSubBinding.inflate(inflater).apply {
+            mBookViewModel = ViewModelProvider(requireActivity(), BookViewModelFactory(BookRepository())).get(BookViewModel::class.java)
+        }
         initView()
         return binding.root
     }
@@ -37,6 +46,18 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
         getPermission()
         initScanner()
         buttonSet()
+        initLiveData()
+    }
+
+    private fun initLiveData() {
+        mBookViewModel.barcodeData.observe(viewLifecycleOwner, Observer {
+            binding.barcodeData = it
+            if(it == null){
+                binding.barcodeView.resume()
+            }else{
+                binding.barcodeView.pause()
+            }
+        })
     }
 
     override fun onResume() {
@@ -66,11 +87,7 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
         binding.barcodeView.setStatusText("바코드를 스캔해 주세요")
         binding.barcodeView.decodeContinuous(object : BarcodeCallback {
             override fun barcodeResult(result: BarcodeResult) {
-                if(readBarcode == null){
-                    readBarcode = result.toString()
-                    binding.setVariable(BR.barcodeData,readBarcode)
-                    binding.barcodeView.pause()
-                }
+                mBookViewModel.barcodeData.postValue(result.toString())
             }
             override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
         })
@@ -78,9 +95,7 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
 
     private fun buttonSet(){
         binding.btnReScan.setOnClickListener {
-            readBarcode = null
-            binding.barcodeView.resume()
-            binding.setVariable(BR.barcodeData,readBarcode)
+            mBookViewModel.barcodeData.postValue(null)
         }
         binding.btnConfirm.setOnClickListener {
         }

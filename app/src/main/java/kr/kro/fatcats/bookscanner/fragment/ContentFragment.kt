@@ -12,11 +12,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kr.kro.fatcats.bookscanner.R
 import kr.kro.fatcats.bookscanner.activites.MainActivity
+import kr.kro.fatcats.bookscanner.api.BookRepository
 import kr.kro.fatcats.bookscanner.databinding.FragmentContentBinding
 import kr.kro.fatcats.bookscanner.listeners.OnFragmentInteractionListener
+import kr.kro.fatcats.bookscanner.model.BookViewModel
+import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
 
 class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelectedListener{
 
@@ -25,6 +29,7 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
     private lateinit var mainFragment: MainFragment
     private lateinit var subFragment: SubFragment
     private lateinit var actionbar: ActionBar
+
 
     private var selectFragment: Fragment? = null
 
