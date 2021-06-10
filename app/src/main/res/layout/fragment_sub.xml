@@ -5,9 +5,8 @@
 
     <data>
         <import type="android.view.View"/>
-        <variable
-            name="barcodeData"
-            type="String" />
+        <variable name="barcodeData" type="String" />
+        <variable name="viewModel" type="kr.kro.fatcats.bookscanner.model.BookViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,11 +23,12 @@
 
         <TextView
             android:id="@+id/textView2"
+            android:text="@{barcodeData}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="@{barcodeData}"
+            android:layout_marginTop="30dp"
             android:visibility="@{barcodeData == null ? View.GONE : View.VISIBLE}"
+            tools:text="바코드"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/barcode_view" />
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:text="다시찍기"
+            android:text="@string/sub_button_re_confirm"
             android:visibility="@{barcodeData == null ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/btn_confirm"
             app:layout_constraintEnd_toStartOf="@+id/textView2"
@@ -50,14 +50,25 @@
             android:id="@+id/btn_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:clickable="true"
             android:focusable="true"
-            android:text="등록하기"
+            android:text="@string/sub_button_confirm"
             android:visibility="@{barcodeData == null ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textView"
+            bindTitle="@{viewModel.bookInfo}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:text="책제목" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

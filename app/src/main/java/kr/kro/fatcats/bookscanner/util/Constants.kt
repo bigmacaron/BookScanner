@@ -6,11 +6,20 @@ class Constants {
 
 
     companion object {
+
         // Server API IP
-        const val BASE_DOMAIN                  = "https://api.gongmanse.com"
+        const val BASE_DOMAIN                  = "http://seoji.nl.go.kr/"
         // Drawer Direction
         const val DRAWER_TYPE                  = GravityCompat.END        //START,END
         const val DRAWER_TYPE_STRING           = "end"                    //START,END
+    }
+
+    class BookApi {
+        companion object {
+            const val RESULT_STYLE = "json"
+            const val PAGE_NO_DEFAULT = "1"
+            const val PAGE_SIZE_DEFAULT = "10"
+        }
     }
 
     // Intent Extras Key

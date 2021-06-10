@@ -34,7 +34,9 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 //        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sub, container, false)
         binding= FragmentSubBinding.inflate(inflater).apply {
-            mBookViewModel = ViewModelProvider(requireActivity(), BookViewModelFactory(BookRepository())).get(BookViewModel::class.java)
+            mBookViewModel = ViewModelProvider(this@SubFragment, BookViewModelFactory(BookRepository())).get(BookViewModel::class.java)
+            viewModel = mBookViewModel
+            lifecycleOwner = this@SubFragment
         }
         initView()
         return binding.root
@@ -50,14 +52,16 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
     }
 
     private fun initLiveData() {
-        mBookViewModel.barcodeData.observe(viewLifecycleOwner, Observer {
+        mBookViewModel.barcodeData.observe(viewLifecycleOwner, {
             binding.barcodeData = it
             if(it == null){
                 binding.barcodeView.resume()
             }else{
                 binding.barcodeView.pause()
+                mBookViewModel.loadBookInfo()
             }
         })
+
     }
 
     override fun onResume() {
@@ -96,6 +100,7 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
     private fun buttonSet(){
         binding.btnReScan.setOnClickListener {
             mBookViewModel.barcodeData.postValue(null)
+            mBookViewModel.bookInfo.postValue(null)
         }
         binding.btnConfirm.setOnClickListener {
         }

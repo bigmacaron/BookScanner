@@ -16,5 +16,9 @@
     <string name="content_permission_request_settings">[설정] > [권한] 에서 권환을 허용할 수 있습니다.</string>
     <string name="content_alert_negative_of_mobile_data">허용안함</string>
 
+    <!--Sub Fragment -->
+    <string name="sub_button_re_confirm">다시찍기</string>
+    <string name="sub_button_confirm">등록하기</string>
+
 
 </resources>

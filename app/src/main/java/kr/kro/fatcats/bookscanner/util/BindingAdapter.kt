@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.drawerlayout.widget.DrawerLayout
+import kr.kro.fatcats.bookscanner.model.BookInfo
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
 
@@ -32,5 +33,14 @@ fun bindViewDrawerType(view: FrameLayout, values: String?) {
             }
             else -> {}
         }
+    }
+}
+
+@BindingAdapter("bindTitle")
+fun bindViewTitle(view: TextView, values: BookInfo?) {
+    if(!values?.docs.isNullOrEmpty()){
+        view.text = "${values?.docs?.get(0)?.title}"
+    }else{
+        view.text =""
     }
 }
