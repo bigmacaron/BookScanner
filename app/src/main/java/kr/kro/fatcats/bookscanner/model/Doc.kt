@@ -8,7 +8,7 @@ import java.io.Serializable
 
 data class Doc(
     @SerializedName("AUTHOR")
-    val aUTHOR: String?,
+    val author: String?,
     @SerializedName("BIB_YN")
     val bIBYN: String?,
     @SerializedName("BOOK_INTRODUCTION_URL")
@@ -48,7 +48,7 @@ data class Doc(
     @SerializedName("PRE_PRICE")
     val pREPRICE: String?,
     @SerializedName("PUBLISHER")
-    val pUBLISHER: String?,
+    val publisher: String?,
     @SerializedName("PUBLISHER_URL")
     val pUBLISHERURL: String?,
     @SerializedName("PUBLISH_PREDATE")
@@ -74,7 +74,7 @@ data class Doc(
     @SerializedName("TITLE")
     val title: String?,
     @SerializedName("TITLE_URL")
-    val tITLEURL: String?,
+    val url: String?,
     @SerializedName("UPDATE_DATE")
     val uPDATEDATE: String?,
     @SerializedName("VOL")

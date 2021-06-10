@@ -27,16 +27,13 @@ import org.jetbrains.anko.support.v4.toast
 class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
 
     private lateinit var binding: FragmentSubBinding
-    private lateinit var capture : CaptureManager
-    private var readBarcode : String? = null
     private lateinit var mBookViewModel: BookViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-//        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sub, container, false)
         binding= FragmentSubBinding.inflate(inflater).apply {
-            mBookViewModel = ViewModelProvider(this@SubFragment, BookViewModelFactory(BookRepository())).get(BookViewModel::class.java)
+            mBookViewModel = ViewModelProvider(requireActivity(), BookViewModelFactory(BookRepository())).get(BookViewModel::class.java)
+            lifecycleOwner = requireActivity()
             viewModel = mBookViewModel
-            lifecycleOwner = this@SubFragment
         }
         initView()
         return binding.root
@@ -61,7 +58,6 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
                 mBookViewModel.loadBookInfo()
             }
         })
-
     }
 
     override fun onResume() {

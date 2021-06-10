@@ -6,6 +6,8 @@
         <variable
             name="type"
             type="String" />
+        <variable name="viewModel" type="kr.kro.fatcats.bookscanner.model.BookViewModel" />
+        <import type="android.view.View"/>
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -13,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activites.MainActivity">
-
 
         <FrameLayout
             android:id="@+id/content_frame"
@@ -30,7 +31,6 @@
             android:choiceMode="singleChoice"
             android:divider="@color/black"
             android:dividerHeight="1dp" />
-
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

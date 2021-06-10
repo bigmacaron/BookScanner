@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
         binding = ActivityMainBinding.inflate(layoutInflater).apply {
             this@MainActivity.let {
                 mBookViewModel = ViewModelProvider(this@MainActivity,BookViewModelFactory(BookRepository())).get(BookViewModel::class.java)
+                viewModel = mBookViewModel
                 lifecycleOwner = this@MainActivity
             }
 

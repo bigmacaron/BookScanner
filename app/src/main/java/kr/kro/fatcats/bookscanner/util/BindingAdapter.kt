@@ -6,11 +6,17 @@ import android.view.Gravity
 import android.view.Gravity.END
 import android.view.Gravity.START
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.drawerlayout.widget.DrawerLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
+import kr.kro.fatcats.bookscanner.R
 import kr.kro.fatcats.bookscanner.model.BookInfo
+import kr.kro.fatcats.bookscanner.model.Doc
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
 
@@ -44,3 +50,26 @@ fun bindViewTitle(view: TextView, values: BookInfo?) {
         view.text =""
     }
 }
+@BindingAdapter("bindAuthor")
+fun bindViewAuthor(view: TextView, values: BookInfo?) {
+    if(!values?.docs.isNullOrEmpty()){
+        view.text = "${values?.docs?.get(0)?.author}"
+    }else{
+        view.text =""
+    }
+}
+@BindingAdapter("bindBookImage")
+fun bindViewBookImage(view: ImageView, values: String?) {
+    if(values != null){
+        Glide.with(view.context)
+            .load("$values")
+            .thumbnail(0.1f)
+            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+            .error(R.drawable.ic_book)
+            .into(view)
+    }else{
+        view.setImageResource(R.drawable.ic_book)
+    }
+}
+
+
