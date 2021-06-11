@@ -1,10 +1,7 @@
 package kr.kro.fatcats.bookscanner.model
 
-
-import androidx.databinding.BaseObservable
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
-
 
 data class Doc(
     @SerializedName("AUTHOR")

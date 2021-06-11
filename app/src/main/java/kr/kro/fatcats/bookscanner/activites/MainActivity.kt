@@ -7,7 +7,6 @@ import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.android.synthetic.main.activity_main.*
 import kr.kro.fatcats.bookscanner.listeners.OnFragmentInteractionListener
 import kr.kro.fatcats.bookscanner.R
 import kr.kro.fatcats.bookscanner.api.BookRepository
@@ -37,7 +36,6 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
                 viewModel = mBookViewModel
                 lifecycleOwner = this@MainActivity
             }
-
         }
 
         setContentView(binding.root)
@@ -75,13 +73,13 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
 
     override fun openDrawer() {
         Log.d(TAG, "openDrawer()...")
-        
-        layout_drawer.openDrawer(Constants.DRAWER_TYPE)
+
+        binding.layoutDrawer.openDrawer(Constants.DRAWER_TYPE)
     }
 
     override fun closeDrawer() {
         Log.d(TAG, "closeDrawer()...")
-        layout_drawer.closeDrawers()
+        binding.layoutDrawer.closeDrawers()
     }
 
     override fun onBackPressed() {
@@ -89,8 +87,8 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
     }
 
     private fun finishAlert() {
-        Log.v(TAG, "drawer2 => ${layout_drawer.isDrawerOpen(Constants.DRAWER_TYPE)}")
-        if (layout_drawer.isDrawerOpen(Constants.DRAWER_TYPE)) {
+        Log.v(TAG, "drawer2 => ${binding.layoutDrawer.isDrawerOpen(Constants.DRAWER_TYPE)}")
+        if (binding.layoutDrawer.isDrawerOpen(Constants.DRAWER_TYPE)) {
             closeDrawer()
             return
         }

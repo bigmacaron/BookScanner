@@ -2,6 +2,7 @@ package kr.kro.fatcats.bookscanner.fragment
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.ColumnInfo
+import androidx.room.PrimaryKey
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.zxing.ResultPoint
 import com.gun0912.tedpermission.PermissionListener
@@ -16,18 +19,25 @@ import com.gun0912.tedpermission.TedPermission
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.CaptureManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kr.kro.fatcats.bookscanner.R
 import kr.kro.fatcats.bookscanner.BR
 import kr.kro.fatcats.bookscanner.api.BookRepository
+import kr.kro.fatcats.bookscanner.api.RoomBookInfoDatabase
 import kr.kro.fatcats.bookscanner.databinding.FragmentSubBinding
 import kr.kro.fatcats.bookscanner.model.BookViewModel
 import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
+import kr.kro.fatcats.bookscanner.model.RoomBookInfo
+import kr.kro.fatcats.bookscanner.util.SingleLiveEvent
 import org.jetbrains.anko.support.v4.toast
 
 class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
 
     private lateinit var binding: FragmentSubBinding
     private lateinit var mBookViewModel: BookViewModel
+    private var db : RoomBookInfoDatabase? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding= FragmentSubBinding.inflate(inflater).apply {
@@ -46,6 +56,11 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
         initScanner()
         buttonSet()
         initLiveData()
+        initRoom()
+    }
+
+    private fun initRoom() {
+        db = RoomBookInfoDatabase.getInstance(binding.root.context.applicationContext)
     }
 
     private fun initLiveData() {
@@ -93,12 +108,27 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
         })
     }
 
+
     private fun buttonSet(){
         binding.btnReScan.setOnClickListener {
             mBookViewModel.barcodeData.postValue(null)
             mBookViewModel.bookInfo.postValue(null)
         }
         binding.btnConfirm.setOnClickListener {
+            val insertData = with(mBookViewModel){
+                RoomBookInfo(
+                    barcodeData.value?.toLong(),
+                    bookTitle.value,
+                    bookAuthor.value,
+                    bookPublisher.value,
+                    bookUrl.value,
+                    "0"
+                )
+            }
+            CoroutineScope(Dispatchers.IO).launch { // 다른애 한테 일 시키기
+                db!!.roomBookInfoDao().insert(insertData)
+                val listA : List<RoomBookInfo> = db!!.roomBookInfoDao().getAll()
+            }
         }
     }
 
