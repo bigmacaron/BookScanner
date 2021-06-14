@@ -24,6 +24,8 @@
     <!--Sub Fragment -->
     <string name="sub_button_re_confirm">다시찍기</string>
     <string name="sub_button_confirm">등록하기</string>
+    <!--Book Info Dialog -->
+    <string name="dialog_title">책정보</string>
 
 
 </resources>

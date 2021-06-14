@@ -22,14 +22,17 @@ import com.journeyapps.barcodescanner.CaptureManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kr.kro.fatcats.bookscanner.R
 import kr.kro.fatcats.bookscanner.BR
 import kr.kro.fatcats.bookscanner.api.BookRepository
+import kr.kro.fatcats.bookscanner.api.DatabaseProvider
 import kr.kro.fatcats.bookscanner.api.RoomBookInfoDatabase
 import kr.kro.fatcats.bookscanner.databinding.FragmentSubBinding
 import kr.kro.fatcats.bookscanner.model.BookViewModel
 import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
 import kr.kro.fatcats.bookscanner.model.RoomBookInfo
+import kr.kro.fatcats.bookscanner.util.BookInfoDialog
 import kr.kro.fatcats.bookscanner.util.SingleLiveEvent
 import org.jetbrains.anko.support.v4.toast
 
@@ -37,7 +40,7 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
 
     private lateinit var binding: FragmentSubBinding
     private lateinit var mBookViewModel: BookViewModel
-    private var db : RoomBookInfoDatabase? = null
+    private val db by lazy {DatabaseProvider.provideDB(requireContext().applicationContext).roomBookInfoDao() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding= FragmentSubBinding.inflate(inflater).apply {
@@ -56,11 +59,6 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
         initScanner()
         buttonSet()
         initLiveData()
-        initRoom()
-    }
-
-    private fun initRoom() {
-        db = RoomBookInfoDatabase.getInstance(binding.root.context.applicationContext)
     }
 
     private fun initLiveData() {
@@ -74,12 +72,15 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
             }
         })
     }
-
+    override fun onStop() {
+        mBookViewModel.barcodeData.postValue(null)
+        mBookViewModel.bookInfo.postValue(null)
+        super.onStop()
+    }
     override fun onResume() {
         binding.barcodeView.resume()
         super.onResume()
     }
-
     override fun onPause() {
         binding.barcodeView.pause()
         super.onPause()
@@ -115,22 +116,46 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener  {
             mBookViewModel.bookInfo.postValue(null)
         }
         binding.btnConfirm.setOnClickListener {
-            val insertData = with(mBookViewModel){
-                RoomBookInfo(
-                    barcodeData.value?.toLong(),
-                    bookTitle.value,
-                    bookAuthor.value,
-                    bookPublisher.value,
-                    bookUrl.value,
-                    "0"
-                )
-            }
-            CoroutineScope(Dispatchers.IO).launch { // 다른애 한테 일 시키기
-                db!!.roomBookInfoDao().insert(insertData)
-                val listA : List<RoomBookInfo> = db!!.roomBookInfoDao().getAll()
+            val regex = "^[0-9]+$".toRegex()
+            Log.d("booooool","${mBookViewModel.barcodeData.value?.substring(0)?.matches(regex) == true}")
+            if(mBookViewModel.barcodeData.value?.substring(0)?.matches(regex) == true){
+                val insertData = with(mBookViewModel){
+                    RoomBookInfo(
+                        barcodeData.value?.toLong(),
+                        bookTitle.value,
+                        bookAuthor.value,
+                        bookPublisher.value,
+                        bookUrl.value,
+                        "0"
+                    )
+                }
+                CoroutineScope(Dispatchers.IO).launch {
+                    mBookViewModel.barcodeData.value?.let {barcode ->
+                        val barcodeData = db.getDataForIsbn(barcode.toLong())
+                        if(barcodeData == null){
+                            insertDbForBarcode(insertData)
+                            Log.d("바코드","${barcodeData?.title}")
+                        }else{
+                            withContext(Dispatchers.Main){
+                                val dialog = BookInfoDialog(binding.root.context)
+                                dialog.myDialog()
+                            }
+                        }
+                    }
+                }
+            }else{
+                toast("잘못된 바코드 입니다.")
             }
         }
     }
+    private suspend fun insertDbForBarcode(insertData : RoomBookInfo) = withContext(Dispatchers.IO){
+        db.insert(insertData)
+    }
+
+    private suspend fun alertDialog() = withContext(Dispatchers.Main){
+
+    }
+
 
     companion object {
         private val TAG = SubFragment::class.java.simpleName

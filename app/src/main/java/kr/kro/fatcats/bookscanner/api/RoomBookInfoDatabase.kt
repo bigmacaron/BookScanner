@@ -10,21 +10,4 @@ import kr.kro.fatcats.bookscanner.model.RoomBookInfo
 abstract class RoomBookInfoDatabase  : RoomDatabase(){
     abstract fun roomBookInfoDao() : RoomBookInfoDao
 
-    companion object{
-        private var instance : RoomBookInfoDatabase? = null
-
-        @Synchronized
-        fun getInstance(context: Context): RoomBookInfoDatabase?{
-            if (instance == null) {
-                synchronized(RoomBookInfoDatabase::class){
-                    instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        RoomBookInfoDatabase::class.java,
-                        "book-info-database"
-                    ).build()
-                }
-            }
-            return instance
-        }
-    }
 }

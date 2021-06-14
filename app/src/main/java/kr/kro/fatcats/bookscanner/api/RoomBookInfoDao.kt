@@ -18,5 +18,5 @@ interface RoomBookInfoDao {
     fun getAll() : List<RoomBookInfo>
 
     @Query("SELECT * FROM RoomBookInfo Where isbn = :isbn")
-    fun getDataForIsbn(isbn : Long) : RoomBookInfo
+    fun getDataForIsbn(isbn : Long) : RoomBookInfo?
 }
