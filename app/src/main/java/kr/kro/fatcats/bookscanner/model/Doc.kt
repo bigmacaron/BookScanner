@@ -27,7 +27,7 @@ data class Doc(
     @SerializedName("EA_ADD_CODE")
     val eAADDCODE: String?,
     @SerializedName("EA_ISBN")
-    val eAISBN: String?,
+    val isbn: String?,
     @SerializedName("EBOOK_YN")
     val eBOOKYN: String?,
     @SerializedName("EDITION_STMT")

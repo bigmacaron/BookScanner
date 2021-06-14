@@ -1,10 +1,12 @@
 package kr.kro.fatcats.bookscanner.api
 
+import android.util.Log
 import kr.kro.fatcats.bookscanner.util.Constants
 import kr.kro.fatcats.bookscanner.util.Preferences
 import retrofit2.http.Query
 
 class BookRepository {
+
 
     private val client = BookService.client
 

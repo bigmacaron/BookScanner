@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class BookInfo(
     @SerializedName("docs")
-    val docs: List<Doc>?,
+    val docs: ArrayList<Doc>?,
     @SerializedName("PAGE_NO")
     val pAGENO: String?,
     @SerializedName("TOTAL_COUNT")

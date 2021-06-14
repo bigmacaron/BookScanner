@@ -2,30 +2,35 @@ package kr.kro.fatcats.bookscanner.util
 
 import android.app.Dialog
 import android.content.Context
-import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.WindowManager
-import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import kr.kro.fatcats.bookscanner.R
+import kr.kro.fatcats.bookscanner.BR
 import kr.kro.fatcats.bookscanner.databinding.BookInfoCustomDialogBinding
-import kr.kro.fatcats.bookscanner.databinding.FragmentSubBinding
+import kr.kro.fatcats.bookscanner.model.BookViewModel
 
-class BookInfoDialog(context: Context) : Dialog(context) {
+class BookInfoDialog(context:Context)   {
     private val dialog = Dialog(context)
-    private lateinit var binding: BookInfoCustomDialogBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        binding = BookInfoCustomDialogBinding.inflate(layoutInflater)
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.book_info_custom_dialog)
-    }
-    fun myDialog(){
+    private lateinit var binding : BookInfoCustomDialogBinding
+    private lateinit var mBookViewModel: BookViewModel
+    fun myDialog(title: String?,url:String?,author :String?,publisher:String?){
         dialog.apply {
-            window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+            binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.book_info_custom_dialog, null, false)
+            setContentView(binding.root)
+            window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT)
             setCanceledOnTouchOutside(true)
             setCancelable(true)
+
         }
+        binding.setVariable(BR.title,title)
+        binding.setVariable(BR.url,url)
+        binding.setVariable(BR.author,author)
+        binding.setVariable(BR.publisher,publisher)
+
         dialog.show()
+
+
 
 //        val photoButton = dialog.findViewById<ImageView>(R.id.iv_select_photo)
 //        val videoButton = dialog.findViewById<ImageView>(R.id.iv_select_video)

@@ -68,6 +68,7 @@ fun bindViewBookImage(view: ImageView, values: String?) {
             .error(R.drawable.ic_book)
             .into(view)
     }else{
+        Log.d("도서정보","URL없음")
         view.setImageResource(R.drawable.ic_book)
     }
 }
