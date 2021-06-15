@@ -17,10 +17,16 @@
     <string name="content_permission_request_settings">[설정] > [권한] 에서 권환을 허용할 수 있습니다.</string>
     <string name="content_alert_negative_of_mobile_data">허용안함</string>
 
-    <!--Main Fragment -->
+    <!--Main Fragment  Drawer Fragment -->
     <string name="main_text_title">제목    : </string>
     <string name="main_text_author">저자    : </string>
     <string name="main_text_publisher">출판사 : </string>
+    <string name="main_text_ct_date">처 음 읽은 날짜 : </string>
+    <string name="main_text_md_date">마지막 읽은 날짜 : </string>
+    <string name="main_text_read_time">약 %s분</string>
+
+    <string name="drawer_text_delete">삭제</string>
+    <string name="drawer_text_delete_all">초기화</string>
     <!--Sub Fragment -->
     <string name="sub_button_re_confirm">다시찍기</string>
     <string name="sub_button_confirm">등록하기</string>

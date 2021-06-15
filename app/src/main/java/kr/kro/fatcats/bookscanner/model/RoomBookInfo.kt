@@ -12,5 +12,9 @@ class RoomBookInfo (
     @ColumnInfo(name = "author") val author: String?,
     @ColumnInfo(name = "publisher") val publisher: String?,
     @ColumnInfo(name = "url") val url: String?,
+    @ColumnInfo(name = "ct_date") val ct_date : String?,
+    @ColumnInfo(name = "mod_date") val mod_date : String?,
     @ColumnInfo(name = "time") val time: String?
+
+
     )

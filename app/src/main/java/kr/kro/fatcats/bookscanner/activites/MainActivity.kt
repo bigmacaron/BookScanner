@@ -3,7 +3,6 @@ package kr.kro.fatcats.bookscanner.activites
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
@@ -12,7 +11,7 @@ import kr.kro.fatcats.bookscanner.R
 import kr.kro.fatcats.bookscanner.api.BookRepository
 import kr.kro.fatcats.bookscanner.databinding.ActivityMainBinding
 import kr.kro.fatcats.bookscanner.fragment.ContentFragment
-import kr.kro.fatcats.bookscanner.fragment.DrawerFragment
+import kr.kro.fatcats.bookscanner.fragment.drawer.DrawerFragment
 import kr.kro.fatcats.bookscanner.model.BookViewModel
 import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
 import kr.kro.fatcats.bookscanner.util.Constants
