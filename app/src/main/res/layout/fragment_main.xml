@@ -8,6 +8,7 @@
         <variable name="author" type="String" />
         <variable name="publisher" type="String" />
         <variable name="url" type="String" />
+        <variable name="time" type="String" />
         <import type="android.view.View"/>
     </data>
 
@@ -16,6 +17,7 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
@@ -28,8 +30,8 @@
                 bindBookImage="@{url}"
                 android:layout_width="100dp"
                 android:layout_height="150dp"
-                android:src="@drawable/ic_book"
                 android:contentDescription="@string/content_description_image_book"
+                android:src="@drawable/ic_book"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -94,6 +96,23 @@
                 tools:text="우리집" />
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@{time}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

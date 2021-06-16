@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.room.ColumnInfo
-import androidx.room.PrimaryKey
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.zxing.ResultPoint
 import com.gun0912.tedpermission.PermissionListener
@@ -20,22 +18,25 @@ import kotlinx.coroutines.*
 import kr.kro.fatcats.bookscanner.api.BookRepository
 import kr.kro.fatcats.bookscanner.api.DatabaseProvider
 import kr.kro.fatcats.bookscanner.databinding.FragmentSubBinding
+import kr.kro.fatcats.bookscanner.listeners.DialogClickListener
 import kr.kro.fatcats.bookscanner.model.BookViewModel
 import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
 import kr.kro.fatcats.bookscanner.model.RoomBookInfo
 import kr.kro.fatcats.bookscanner.util.BookInfoDialog
+import kr.kro.fatcats.bookscanner.util.Constants
 import org.jetbrains.anko.support.v4.toast
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
-class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineScope {
+class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineScope,DialogClickListener {
 
     private lateinit var binding: FragmentSubBinding
     private lateinit var mBookViewModel: BookViewModel
     private val db by lazy {DatabaseProvider.provideDB(requireContext().applicationContext).roomBookInfoDao() }
     private val dialog by lazy {  BookInfoDialog(binding.root.context)}
     private val job = Job()
+    private val listener : DialogClickListener = this
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -79,47 +80,62 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
         val regex = "^[0-9]+$".toRegex()
         Log.d("booooool","${mBookViewModel.barcodeData.value?.substring(0)?.matches(regex) == true}")
         if(mBookViewModel.barcodeData.value?.substring(0)?.matches(regex) == true){
-            val now =  SimpleDateFormat("yyyy.MM.dd HH:mm:ss", Locale.KOREA).format(Calendar.getInstance().time)
-            val insertData = with(mBookViewModel){
-                RoomBookInfo(
-                    barcodeData.value?.toLong(),
-                    bookTitle.value,
-                    bookAuthor.value,
-                    bookPublisher.value,
-                    bookUrl.value,
-                    now,
-                    now,
-                    "0"
-                )
-            }
             mBookViewModel.barcodeData.value?.let {barcode ->
                 val barcodeData = db.getDataForIsbn(barcode.toLong())
                 Log.d("barcodeData" ,"barcodeData=> ${barcodeData?.isbn}")
                 if(barcodeData?.isbn == null){
-                    Log.d("insertData.title","${insertData.title}")
-                    insertDbForBarcode(insertData)
-                    mBookViewModel.bookListSize.postValue(db.getAll().size)
                     Log.d("바코드","${barcodeData?.ct_date} : ${barcodeData?.mod_date}")
                     withContext(Dispatchers.Main){
                         dialog.myDialog(
-                        insertData.title,
-                        insertData.url,
-                        insertData.author,
-                        insertData.publisher
+                            mBookViewModel.bookTitle.value,
+                            mBookViewModel.bookUrl.value,
+                            mBookViewModel.bookAuthor.value,
+                            mBookViewModel.bookPublisher.value,
+                            null
+                            ,listener
                     )}
                 }else{
                     withContext(Dispatchers.Main){
                         dialog.myDialog(
-                        insertData.title,
-                        insertData.url,
-                        insertData.author,
-                        insertData.publisher
-                    )}
+                            mBookViewModel.bookTitle.value,
+                            mBookViewModel.bookUrl.value,
+                            mBookViewModel.bookAuthor.value,
+                            mBookViewModel.bookPublisher.value,
+                            Constants.DialogType.IS_ROOM,listener
+                        )}
                 }
 
             }
         }else{
             withContext(Dispatchers.Main){toast("잘못된 바코드 입니다.")}
+        }
+    }
+    override fun onClick(type: String) {
+        val now =  SimpleDateFormat("yyyy.MM.dd HH:mm:ss", Locale.KOREA).format(Calendar.getInstance().time)
+        val insertData = with(mBookViewModel){
+            RoomBookInfo(
+                barcodeData.value?.toLong(),
+                bookTitle.value,
+                bookAuthor.value,
+                bookPublisher.value,
+                bookUrl.value,
+                now,
+                now,
+                "0"
+            )
+        }
+        launch {
+            when(type){
+                Constants.DialogType.REGISTER ->{
+                    insertDbForBarcode(insertData)
+                }
+                Constants.DialogType.TIMER ->{
+                    mBookViewModel.mainBookInfo.postValue(mBookViewModel.barcodeData.value?.toLong()?.let {
+                        getRoomBookInfo(it)
+                    })
+                }
+                else -> toast("이미등록")
+            }
         }
     }
 
@@ -166,18 +182,20 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
             mBookViewModel.barcodeData.postValue(null)
             mBookViewModel.bookInfo.postValue(null)
         }
-        binding.btnConfirm.setOnClickListener {
-
-        }
     }
     private suspend fun insertDbForBarcode(insertData : RoomBookInfo) = withContext(Dispatchers.IO){
-        Log.d("insertDbForBarcode", "$insertData")
         db.insert(insertData)
+        mBookViewModel.bookListSize.postValue(db.getAll().size)
+    }
+    private suspend fun getRoomBookInfo(isbn : Long) = withContext(Dispatchers.IO){
+        db.getDataForIsbn(isbn)
     }
 
 
     companion object {
         private val TAG = SubFragment::class.java.simpleName
     }
+
+
 
 }

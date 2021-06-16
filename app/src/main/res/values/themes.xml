@@ -42,5 +42,8 @@
     <style name="BottomNavigation.Active" parent="TextAppearance.AppCompat.Caption">
         <item name="android:textSize">12sp</item>
     </style>
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/fade_in_slide_up</item>
+    </style>
 
 </resources>

@@ -52,5 +52,13 @@ class Constants {
         }
     }
 
+    class DialogType {
+        companion object {
+            const val TIMER                   = "timer"
+            const val REGISTER                = "register"
+            const val IS_ROOM                 = "isRoom"
+        }
+    }
+
 
 }

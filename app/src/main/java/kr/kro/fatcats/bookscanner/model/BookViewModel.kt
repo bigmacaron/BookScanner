@@ -22,6 +22,7 @@ class BookViewModel(private val bookRepository: BookRepository?): ViewModel() ,C
     private val _bookPublisher = SingleLiveEvent<String?>()
     private val _bookList = SingleLiveEvent<ArrayList<ListInfo>>()
     private val _bookListSize = SingleLiveEvent<Int?>()
+    private val _mainBookInfo = SingleLiveEvent<ListInfo>()
 
     val barcodeData : SingleLiveEvent<String?>
         get() = _barcodeData
@@ -37,8 +38,12 @@ class BookViewModel(private val bookRepository: BookRepository?): ViewModel() ,C
         get() =  _bookPublisher
     val bookList : SingleLiveEvent<ArrayList<ListInfo>>
         get() = _bookList
+    //size 측정 -> Drawer 컨트롤
     val bookListSize : SingleLiveEvent<Int?>
         get() =  _bookListSize
+    //메인에 그려지는것
+    val mainBookInfo : SingleLiveEvent<ListInfo>
+        get() = _mainBookInfo
 
     init {
         _barcodeData.value = null

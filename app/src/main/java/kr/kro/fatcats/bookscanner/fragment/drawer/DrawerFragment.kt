@@ -12,6 +12,7 @@ import kotlinx.coroutines.*
 import kr.kro.fatcats.bookscanner.activites.MainActivity
 import kr.kro.fatcats.bookscanner.api.BookRepository
 import kr.kro.fatcats.bookscanner.api.DatabaseProvider
+import kr.kro.fatcats.bookscanner.api.RoomBookInfoDao
 import kr.kro.fatcats.bookscanner.databinding.FragmentDrawerBinding
 import kr.kro.fatcats.bookscanner.model.BookViewModel
 import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
@@ -29,10 +30,11 @@ class DrawerFragment : Fragment(),SwipeRefreshLayout.OnRefreshListener , Corouti
 
     private lateinit var binding: FragmentDrawerBinding
     private lateinit var mBookViewModel: BookViewModel
-    private val db by lazy { DatabaseProvider.provideDB(requireContext().applicationContext).roomBookInfoDao() }
+    private lateinit var db : RoomBookInfoDao
     private lateinit var mAdapter : DrawerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        db = DatabaseProvider.provideDB(requireContext().applicationContext).roomBookInfoDao()
         binding= FragmentDrawerBinding.inflate(inflater).apply {
             mBookViewModel = ViewModelProvider(requireActivity(), BookViewModelFactory(BookRepository())).get(BookViewModel::class.java)
             lifecycleOwner = requireActivity()
@@ -72,7 +74,7 @@ class DrawerFragment : Fragment(),SwipeRefreshLayout.OnRefreshListener , Corouti
         binding.rvBookList.apply {
             setHasFixedSize(true)
             setItemViewCacheSize(20)
-            mAdapter = DrawerAdapter()
+            mAdapter = DrawerAdapter(db)
             adapter = mAdapter
         }
     }

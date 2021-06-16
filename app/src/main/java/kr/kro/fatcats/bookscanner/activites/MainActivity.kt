@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
     private lateinit var binding : ActivityMainBinding
     private var fragment: Fragment? = null
     private var ordSorFrag: Fragment? = null
-    private lateinit var mBookViewModel: BookViewModel
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,5 +105,6 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
 
     companion object{
         private val TAG = MainActivity::class.java.simpleName
+        lateinit var mBookViewModel: BookViewModel
     }
 }

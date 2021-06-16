@@ -37,17 +37,12 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener{
     }
 
     private fun initLiveData() {
-        mBookViewModel.bookTitle.observe(viewLifecycleOwner,{
-            binding.setVariable(BR.title,it)
-        })
-        mBookViewModel.bookAuthor.observe(viewLifecycleOwner,{
-            binding.setVariable(BR.author,it)
-        })
-        mBookViewModel.bookPublisher.observe(viewLifecycleOwner,{
-            binding.setVariable(BR.publisher,it)
-        })
-        mBookViewModel.bookUrl.observe(viewLifecycleOwner,{
-            binding.setVariable(BR.url,it)
+        mBookViewModel.mainBookInfo.observe(viewLifecycleOwner,{
+            binding.setVariable(BR.title,it.title)
+            binding.setVariable(BR.author,it.author)
+            binding.setVariable(BR.publisher,it.publisher)
+            binding.setVariable(BR.url,it.url)
+            binding.setVariable(BR.time,it.time)
         })
     }
 

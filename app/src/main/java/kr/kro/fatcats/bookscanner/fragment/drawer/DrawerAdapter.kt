@@ -4,23 +4,36 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kr.kro.fatcats.bookscanner.activites.MainActivity
+import kr.kro.fatcats.bookscanner.activites.MainActivity.Companion.mBookViewModel
+import kr.kro.fatcats.bookscanner.api.BookRepository
+import kr.kro.fatcats.bookscanner.api.RoomBookInfoDao
 import kr.kro.fatcats.bookscanner.databinding.ItemBookListBinding
+import kr.kro.fatcats.bookscanner.model.BookViewModel
+import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
 import kr.kro.fatcats.bookscanner.model.ListInfo
 
-class DrawerAdapter :RecyclerView.Adapter<DrawerAdapter.ViewHolder>() {
+class DrawerAdapter (private val db : RoomBookInfoDao):RecyclerView.Adapter<DrawerAdapter.ViewHolder>() {
     private val items : ArrayList<ListInfo> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DrawerAdapter.ViewHolder {
-        Log.d("data2" , "onCreateViewHolder")
+
         val binding = ItemBookListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
-        Log.d("data3" , "$item")
-        (holder as ViewHolder).apply {
-            bind(item,View.OnClickListener {  })
+        holder.apply {
+            bind(item,View.OnClickListener {
+                runBlocking(Dispatchers.IO) {
+                    mBookViewModel.mainBookInfo.postValue( db.getDataForIsbn(item.isbn!!.toLong()))
+                }
+            })
         }
     }
 
@@ -29,7 +42,6 @@ class DrawerAdapter :RecyclerView.Adapter<DrawerAdapter.ViewHolder>() {
     }
 
     fun addItem(item: ArrayList<ListInfo>){
-        Log.d("data1","$item")
         items.addAll(item)
         notifyDataSetChanged()
     }
@@ -40,9 +52,9 @@ class DrawerAdapter :RecyclerView.Adapter<DrawerAdapter.ViewHolder>() {
 
     inner class ViewHolder (private val binding : ItemBookListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ListInfo, listener: View.OnClickListener) {
-            Log.d("data4" , "$data")
             binding.apply {
                 this.data = data
+                itemView.setOnClickListener(listener)
             }
         }
     }
