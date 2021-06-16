@@ -1,9 +1,12 @@
 package kr.kro.fatcats.bookscanner.model
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
 import kr.kro.fatcats.bookscanner.api.BookRepository
+import kr.kro.fatcats.bookscanner.util.Event
 import kr.kro.fatcats.bookscanner.util.SingleLiveEvent
 import kotlin.coroutines.CoroutineContext
 
@@ -13,6 +16,9 @@ class BookViewModel(private val bookRepository: BookRepository?): ViewModel() ,C
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
+
+    private val _showToast = MutableLiveData<Event<String>>()
+    val showToast: LiveData<Event<String>> = _showToast
 
     private val _barcodeData = SingleLiveEvent<String?>()
     private val _bookInfo = SingleLiveEvent<BookInfo?>()
@@ -56,14 +62,17 @@ class BookViewModel(private val bookRepository: BookRepository?): ViewModel() ,C
         bookRepository?.getVideoData("${barcodeData.value}")?.let { response ->
             Log.d("response", "response=> $response")
             if(response.isSuccessful){
-                Log.d("진입","book 함수 진입=> ${response.code()}")
                 response.body()?.let {
-                    Log.d("진입","book 함수 진입1 => $it")
+                    Log.d("loadBookInfo","book 함수 진입 => $it")
                     _bookInfo.postValue(it)
-                    _bookTitle.postValue(it.docs?.get(0)?.title)
-                    _bookAuthor.postValue(it.docs?.get(0)?.author)
-                    _bookUrl.postValue(it.docs?.get(0)?.url)
-                    _bookPublisher.postValue(it.docs?.get(0)?.publisher)
+                    if(it.docs?.size!! > 0){
+                         _bookTitle.postValue(it.docs[0].title)
+                         _bookAuthor.postValue(it.docs[0].author)
+                         _bookUrl.postValue(it.docs[0].url)
+                         _bookPublisher.postValue(it.docs[0].publisher)
+                    }else{
+                        _showToast.postValue(Event("죄송합니다.정보가 없습니다."))
+                    }
                 }
             }
         }

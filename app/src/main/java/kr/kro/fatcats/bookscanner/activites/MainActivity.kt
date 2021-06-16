@@ -17,6 +17,7 @@ import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
 import kr.kro.fatcats.bookscanner.util.Constants
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.yesButton
 
 class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
@@ -59,6 +60,20 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
             ordSorFrag = fm.findFragmentById(R.id.drawer_frame)
         }
 
+        initLiveData()
+
+    }
+
+    private fun initLiveData(){
+        mBookViewModel.showToast.observe(this, {
+            it.getContentIfNotHandled()?.let { msg ->
+                showToast(msg)
+            }
+        })
+    }
+
+    private fun showToast(msg: String) {
+        toast(msg)
     }
 
     private fun moveSplash() {
