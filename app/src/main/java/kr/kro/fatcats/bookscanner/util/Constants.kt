@@ -13,6 +13,11 @@ class Constants {
         const val DRAWER_TYPE                  = GravityCompat.END        //START,END
         const val DRAWER_TYPE_STRING           = "end"                    //START,END
     }
+    class MainText {
+        companion object {
+            const val TOTAL_TIME_VIEW_TEXT = "이때까지 읽은 총 시간 약: "
+        }
+    }
 
     class BookApi {
         companion object {

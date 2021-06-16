@@ -1,5 +1,6 @@
 package kr.kro.fatcats.bookscanner.util
 
+import android.annotation.SuppressLint
 import android.app.ActionBar
 import android.util.Log
 import android.view.Gravity
@@ -19,7 +20,26 @@ import kr.kro.fatcats.bookscanner.model.BookInfo
 import kr.kro.fatcats.bookscanner.model.Doc
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
+@SuppressLint("SetTextI18n")
 
+
+@BindingAdapter("bindTotalTime")
+fun bindViewTotalTime(view: TextView, values: String?) {
+    values?.let {
+        view.text = "${Constants.MainText.TOTAL_TIME_VIEW_TEXT} $values"
+    }
+
+
+}
+@BindingAdapter("bindTimer")
+fun bindViewTimer(view: TextView, values: Long?) {
+    var time = 0L
+    if(values != null){
+        time = values/1000
+        Log.d("bindTimer","$values")
+        view.text = time.toString()
+    }
+}
 @BindingAdapter("bindDrawerType")
 fun bindViewDrawerType(view: FrameLayout, values: String?) {
     values?.let{
