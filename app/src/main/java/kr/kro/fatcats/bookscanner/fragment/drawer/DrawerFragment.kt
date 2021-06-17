@@ -14,6 +14,7 @@ import kr.kro.fatcats.bookscanner.api.BookRepository
 import kr.kro.fatcats.bookscanner.api.DatabaseProvider
 import kr.kro.fatcats.bookscanner.api.RoomBookInfoDao
 import kr.kro.fatcats.bookscanner.databinding.FragmentDrawerBinding
+import kr.kro.fatcats.bookscanner.fragment.ContentFragment
 import kr.kro.fatcats.bookscanner.model.BookViewModel
 import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
 import kr.kro.fatcats.bookscanner.model.ListInfo
@@ -22,7 +23,7 @@ import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.yesButton
 import kotlin.coroutines.CoroutineContext
 
-class DrawerFragment : Fragment(),SwipeRefreshLayout.OnRefreshListener , CoroutineScope{
+class DrawerFragment : Fragment() , CoroutineScope{
 
     private val job = Job()
     override val coroutineContext: CoroutineContext
@@ -42,14 +43,11 @@ class DrawerFragment : Fragment(),SwipeRefreshLayout.OnRefreshListener , Corouti
         return binding.root
     }
 
-    override fun onRefresh() {
-        mAdapter.clear()
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initView()
     }
+
 
     private fun initView() {
         setAdapter()
@@ -89,12 +87,20 @@ class DrawerFragment : Fragment(),SwipeRefreshLayout.OnRefreshListener , Corouti
                 returnBookListSize()
             }
         })
+        mBookViewModel.totalTime.observe(viewLifecycleOwner,{
+            launch{
+                refreshAdapter()
+            }
+        })
     }
 
     private suspend fun initDb() = withContext(Dispatchers.IO){
         val dbData = db.getAll() as ArrayList<ListInfo>
         Log.d("DBData","$dbData")
         mBookViewModel.bookList.postValue(dbData)
+    }
+    private suspend fun refreshAdapter() = withContext(Dispatchers.IO){
+        mBookViewModel.bookListSize.postValue(db.getAll().size)
     }
 
     private suspend fun deleteAll() = withContext(Dispatchers.IO){

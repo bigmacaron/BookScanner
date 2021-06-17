@@ -20,25 +20,43 @@ import kr.kro.fatcats.bookscanner.model.BookInfo
 import kr.kro.fatcats.bookscanner.model.Doc
 import org.jetbrains.anko.linearLayout
 import org.jetbrains.anko.matchParent
+import java.util.*
+
 @SuppressLint("SetTextI18n")
 
+@BindingAdapter("bindDrawerTime")
+fun bindViewDrawerTime(view: TextView, values: Long?) {
+    val minutes = ((values?.div(1000))?.div(60))
+    var timeLeftFormatted = String.format(Locale.getDefault(), "약%03d분", minutes)
+    values?.let {  view.text = timeLeftFormatted  }
+}
+@BindingAdapter("bindTimerButtonText")
+fun bindViewTimerButtonText(view: TextView, values: Boolean?) {
+    values?.let {
+        if(values){
+            view.text = Constants.MainText.START
+        }else{
+            view.text = Constants.MainText.PAUSE
+        }
+    }
+}
 
 @BindingAdapter("bindTotalTime")
 fun bindViewTotalTime(view: TextView, values: String?) {
     values?.let {
         view.text = "${Constants.MainText.TOTAL_TIME_VIEW_TEXT} $values"
     }
-
-
 }
 @BindingAdapter("bindTimer")
 fun bindViewTimer(view: TextView, values: Long?) {
-    var time = 0L
-    if(values != null){
-        time = values/1000
-        Log.d("bindTimer","$values")
-        view.text = time.toString()
+    val hour    = ((values?.div(1000))?.div(60))?.div(60)
+    val minutes = ((values?.div(1000))?.div(60))
+    val seconds = ((values?.div(1000))?.rem(60))
+    var timeLeftFormatted = String.format(Locale.getDefault(),  "%02d:%02d:%02d",hour, minutes, seconds)
+    if(seconds == null){
+        timeLeftFormatted = "00:00:00"
     }
+        view.text = timeLeftFormatted
 }
 @BindingAdapter("bindDrawerType")
 fun bindViewDrawerType(view: FrameLayout, values: String?) {

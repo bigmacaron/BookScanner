@@ -49,6 +49,9 @@ class DrawerAdapter (private val db : RoomBookInfoDao):RecyclerView.Adapter<Draw
         items.clear()
         notifyDataSetChanged()
     }
+    fun refresh(){
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder (private val binding : ItemBookListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ListInfo, listener: View.OnClickListener) {

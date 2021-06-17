@@ -12,5 +12,5 @@ data class ListInfo (
     val url: String?,
     val ct_date : String?,
     val mod_date : String?,
-    val time: String?
+    val time: Long?
         )

@@ -11,6 +11,7 @@ import kr.kro.fatcats.bookscanner.R
 import kr.kro.fatcats.bookscanner.api.BookRepository
 import kr.kro.fatcats.bookscanner.databinding.ActivityMainBinding
 import kr.kro.fatcats.bookscanner.fragment.ContentFragment
+import kr.kro.fatcats.bookscanner.fragment.MainFragment
 import kr.kro.fatcats.bookscanner.fragment.drawer.DrawerFragment
 import kr.kro.fatcats.bookscanner.model.BookViewModel
 import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
@@ -25,7 +26,6 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
     private lateinit var binding : ActivityMainBinding
     private var fragment: Fragment? = null
     private var ordSorFrag: Fragment? = null
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,14 +86,19 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
     }
 
     override fun openDrawer() {
-        Log.d(TAG, "openDrawer()...")
-
-        binding.layoutDrawer.openDrawer(Constants.DRAWER_TYPE)
+        if(mBookViewModel.timer.value == null){
+            binding.layoutDrawer.openDrawer(Constants.DRAWER_TYPE)
+        }else{
+            showToast("목록을 보시려면 타이머를 멈추고 저장해주세요")
+        }
     }
-
     override fun closeDrawer() {
-        Log.d(TAG, "closeDrawer()...")
-        binding.layoutDrawer.closeDrawers()
+        if(mBookViewModel.timer.value == null){
+            binding.layoutDrawer.closeDrawers()
+        }else{
+            showToast("목록을 보시려면 타이머를 멈추고 저장해주세요")
+        }
+
     }
 
     override fun onBackPressed() {
@@ -106,12 +111,7 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
             closeDrawer()
             return
         }
-//        val content = (fragment as ContentFragment)
-//        Log.v(TAG, "content => ${content.isCurrentHomeFragment()}")
-//        if (content.isCurrentHomeFragment().not()) {
-//            content.setCurrentHomeFragment()
-//            return
-//        }
+
         alert(message = "앱을 종료하시겠습니까?") {
             yesButton { finish() }
             noButton { it.dismiss() }

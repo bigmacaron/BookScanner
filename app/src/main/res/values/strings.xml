@@ -21,9 +21,8 @@
     <string name="main_text_title">제목    : </string>
     <string name="main_text_author">저자    : </string>
     <string name="main_text_publisher">출판사 : </string>
-    <string name="main_text_ct_date">처 음 읽은 날짜 : </string>
-    <string name="main_text_md_date">마지막 읽은 날짜 : </string>
-    <string name="main_text_read_time">약 %s분</string>
+    <string name="main_text_ct_date">최초 등록일 : </string>
+    <string name="main_text_md_date">최근 독서일 : </string>
 
     <string name="drawer_text_delete">삭제</string>
     <string name="drawer_text_delete_all">초기화</string>
@@ -32,6 +31,8 @@
     <string name="sub_button_confirm">등록하기</string>
     <!--Book Info Dialog -->
     <string name="dialog_title">책정보</string>
+    <string name="dialog_reg_timer">타이머등록</string>
+    <string name="dialog_reg">등록하기</string>
 
 
 </resources>

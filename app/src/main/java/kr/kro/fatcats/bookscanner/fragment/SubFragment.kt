@@ -3,10 +3,13 @@ package kr.kro.fatcats.bookscanner.fragment
 import android.Manifest
 import android.os.Bundle
 import android.util.Log
+import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.zxing.ResultPoint
@@ -15,6 +18,8 @@ import com.gun0912.tedpermission.TedPermission
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import kotlinx.coroutines.*
+import kr.kro.fatcats.bookscanner.R
+import kr.kro.fatcats.bookscanner.activites.MainActivity
 import kr.kro.fatcats.bookscanner.api.BookRepository
 import kr.kro.fatcats.bookscanner.api.DatabaseProvider
 import kr.kro.fatcats.bookscanner.databinding.FragmentSubBinding
@@ -61,7 +66,6 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
     }
 
     private fun initLiveData() {
-
         mBookViewModel.barcodeData.observe(viewLifecycleOwner, {
             binding.barcodeData = it
             launch {
@@ -74,6 +78,7 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
                 }
             }
         })
+        cameraStop()
     }
 
     private suspend fun dialogShow() =  withContext(Dispatchers.IO){
@@ -133,17 +138,26 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
                     mBookViewModel.mainBookInfo.postValue(mBookViewModel.barcodeData.value?.toLong()?.let {
                         getRoomBookInfo(it)
                     })
+                    mBookViewModel.fragment.postValue(type)
+
                 }
                 else -> toast("이미등록")
             }
         }
     }
 
-    override fun onStop() {
-        mBookViewModel.barcodeData.postValue(null)
-        mBookViewModel.bookInfo.postValue(null)
-        super.onStop()
+    //카메라가 계속 백그라운드에서 작동되어서 임시로 만든함수
+    private fun cameraStop(){
+        mBookViewModel.cameraStop.observe(viewLifecycleOwner,{
+            if(it==null){
+                binding.barcodeView.pause()
+            }else{
+                binding.barcodeView.resume()
+            }
+        })
     }
+
+
     override fun onResume() {
         binding.barcodeView.resume()
         super.onResume()

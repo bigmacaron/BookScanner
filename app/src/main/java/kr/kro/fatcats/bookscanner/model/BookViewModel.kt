@@ -30,6 +30,9 @@ class BookViewModel(private val bookRepository: BookRepository?): ViewModel() ,C
     private val _bookListSize = SingleLiveEvent<Int?>()
     private val _mainBookInfo = SingleLiveEvent<ListInfo>()
     private val _timer =SingleLiveEvent<Long?>()
+    private val _totalTime =SingleLiveEvent<Long?>()
+    private val _cameraStop = SingleLiveEvent<String?>()
+    private val _fragment = SingleLiveEvent<String?>()
 
     val barcodeData : SingleLiveEvent<String?>
         get() = _barcodeData
@@ -53,6 +56,12 @@ class BookViewModel(private val bookRepository: BookRepository?): ViewModel() ,C
         get() = _mainBookInfo
     val timer : SingleLiveEvent<Long?>
         get() = _timer
+    val totalTime : SingleLiveEvent<Long?>
+        get() = _totalTime
+    val cameraStop : SingleLiveEvent<String?>
+        get() = _cameraStop
+    val fragment : SingleLiveEvent<String?>
+        get() = _fragment
 
     init {
         _barcodeData.value = null
@@ -71,7 +80,7 @@ class BookViewModel(private val bookRepository: BookRepository?): ViewModel() ,C
                          _bookUrl.postValue(it.docs[0].url)
                          _bookPublisher.postValue(it.docs[0].publisher)
                     }else{
-                        _showToast.postValue(Event("죄송합니다.정보가 없습니다."))
+                        showToast("죄송합니다.정보가 없습니다.")
                     }
                 }
             }
@@ -97,6 +106,14 @@ class BookViewModel(private val bookRepository: BookRepository?): ViewModel() ,C
 //            _bookUrl.postValue(it.docs?.get(0)?.url)
 //            _bookPublisher.postValue(it.docs?.get(0)?.publisher)
 //        }
+    }
+
+    fun updateDrawer(){
+
+    }
+
+    fun showToast(text : String){
+        _showToast.postValue(Event(text))
     }
 
     companion object {

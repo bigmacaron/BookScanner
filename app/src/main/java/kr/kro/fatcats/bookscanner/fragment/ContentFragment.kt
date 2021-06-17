@@ -18,6 +18,7 @@ import kr.kro.fatcats.bookscanner.R
 import kr.kro.fatcats.bookscanner.activites.MainActivity
 import kr.kro.fatcats.bookscanner.api.BookRepository
 import kr.kro.fatcats.bookscanner.databinding.FragmentContentBinding
+import kr.kro.fatcats.bookscanner.databinding.FragmentMainBinding
 import kr.kro.fatcats.bookscanner.listeners.OnFragmentInteractionListener
 import kr.kro.fatcats.bookscanner.model.BookViewModel
 import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
@@ -26,15 +27,18 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
 
     private var mListener: OnFragmentInteractionListener? = null
     private lateinit var binding: FragmentContentBinding
+    private lateinit var actionbar: ActionBar
+    private lateinit var mBookViewModel: BookViewModel
     private lateinit var mainFragment: MainFragment
     private lateinit var subFragment: SubFragment
-    private lateinit var actionbar: ActionBar
 
 
     private var selectFragment: Fragment? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_content, container, false)
+        binding = FragmentContentBinding.inflate(inflater).apply {
+            mBookViewModel = ViewModelProvider(requireActivity(), BookViewModelFactory(BookRepository())).get(BookViewModel::class.java)
+        }
         return binding.root
     }
 
@@ -64,6 +68,13 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
         setupFragment()
         setActionbar()
         replaceFragment(mainFragment)
+        initLiveData()
+    }
+
+    private fun initLiveData(){
+        mBookViewModel.fragment.observe(viewLifecycleOwner,{
+
+        })
     }
 
     private fun setupFragment() {
@@ -120,16 +131,19 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
         Log.v(TAG, "onNavigationItemSelected() => ${item.itemId}")
         return when (item.itemId) {
             R.id.action_home -> {
+                MainActivity.mBookViewModel.cameraStop.postValue(null)
                 replaceFragment(mainFragment)
                 true
             }
             R.id.action_progress -> {
+                MainActivity.mBookViewModel.cameraStop.postValue("play")
                 replaceFragment(subFragment)
                 true
             }
             else -> false
         }
     }
+
 
     companion object {
 
