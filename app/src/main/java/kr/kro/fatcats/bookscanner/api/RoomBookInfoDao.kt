@@ -24,6 +24,9 @@ interface RoomBookInfoDao {
     @Query("DELETE FROM RoomBookInfo")
     fun deleteAll()
 
+    @Query("DELETE FROM RoomBookInfo Where isbn = :isbn ")
+    fun deleteItem(isbn: Long)
+
     @Query("UPDATE RoomBookInfo SET time = :time WHERE isbn = :isbn")
     fun updateTime(time : Long?,isbn: Long)
 

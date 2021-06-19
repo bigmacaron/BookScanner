@@ -1,5 +1,9 @@
 package kr.kro.fatcats.bookscanner.fragment.drawer
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Context
+import android.content.DialogInterface
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,9 +21,11 @@ import kr.kro.fatcats.bookscanner.databinding.ItemBookListBinding
 import kr.kro.fatcats.bookscanner.model.BookViewModel
 import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
 import kr.kro.fatcats.bookscanner.model.ListInfo
+import org.jetbrains.anko.toast
 
-class DrawerAdapter (private val db : RoomBookInfoDao):RecyclerView.Adapter<DrawerAdapter.ViewHolder>() {
+class DrawerAdapter (private val db : RoomBookInfoDao,context : Context):RecyclerView.Adapter<DrawerAdapter.ViewHolder>() {
     private val items : ArrayList<ListInfo> = arrayListOf()
+    private val context = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DrawerAdapter.ViewHolder {
 
@@ -52,6 +58,26 @@ class DrawerAdapter (private val db : RoomBookInfoDao):RecyclerView.Adapter<Draw
     fun refresh(){
         notifyDataSetChanged()
     }
+    fun removeData(position: Int) {
+        val alert : AlertDialog.Builder = AlertDialog.Builder(context)
+        alert.setTitle("삭제")
+        alert.setMessage("삭제한 데이터는 복구가 불가능 합니다.삭제하시겠습니까?")
+        alert.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+            runBlocking(Dispatchers.IO) {
+                Log.d("items","item =>${items[position].isbn}")
+                items[position].isbn?.let { db.deleteItem(it) }
+            }
+            items.removeAt(position)
+            notifyDataSetChanged()
+            dialog.dismiss()
+        })
+        alert.setNegativeButton("취소", DialogInterface.OnClickListener { dialog, which ->
+            notifyDataSetChanged()
+            dialog.dismiss()
+        })
+        alert.show()
+    }
+
 
     inner class ViewHolder (private val binding : ItemBookListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ListInfo, listener: View.OnClickListener) {
@@ -60,6 +86,7 @@ class DrawerAdapter (private val db : RoomBookInfoDao):RecyclerView.Adapter<Draw
                 itemView.setOnClickListener(listener)
             }
         }
+
     }
 
 

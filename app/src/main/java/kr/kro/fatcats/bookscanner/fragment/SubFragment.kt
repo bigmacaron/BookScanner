@@ -3,13 +3,10 @@ package kr.kro.fatcats.bookscanner.fragment
 import android.Manifest
 import android.os.Bundle
 import android.util.Log
-import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.zxing.ResultPoint
@@ -18,8 +15,7 @@ import com.gun0912.tedpermission.TedPermission
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import kotlinx.coroutines.*
-import kr.kro.fatcats.bookscanner.R
-import kr.kro.fatcats.bookscanner.activites.MainActivity
+import kr.kro.fatcats.bookscanner.BR
 import kr.kro.fatcats.bookscanner.api.BookRepository
 import kr.kro.fatcats.bookscanner.api.DatabaseProvider
 import kr.kro.fatcats.bookscanner.databinding.FragmentSubBinding
@@ -81,6 +77,7 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
         cameraStop()
     }
 
+
     private suspend fun dialogShow() =  withContext(Dispatchers.IO){
         val regex = "^[0-9]+$".toRegex()
         Log.d("booooool","${mBookViewModel.barcodeData.value?.substring(0)?.matches(regex) == true}")
@@ -139,9 +136,8 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
                         getRoomBookInfo(it)
                     })
                     mBookViewModel.fragment.postValue(type)
-
                 }
-                else -> toast("이미등록")
+                else -> toast("죄송합니다. 관리자에게 문의해 주세요")
             }
         }
     }

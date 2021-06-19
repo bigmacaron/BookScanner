@@ -8,14 +8,14 @@ class Constants {
     companion object {
 
         // Server API IP
-        const val BASE_DOMAIN                  = "http://seoji.nl.go.kr/"
+        const val BASE_DOMAIN                  = "https://openapi.naver.com/"
         // Drawer Direction
         const val DRAWER_TYPE                  = GravityCompat.END        //START,END
         const val DRAWER_TYPE_STRING           = "end"                    //START,END
     }
     class MainText {
         companion object {
-            const val TOTAL_TIME_VIEW_TEXT = "이때까지 읽은 총 시간 약: "
+            const val TOTAL_TIME_VIEW_TEXT = "총 읽은 시간 약: "
             const val START                = "시작"
             const val PAUSE                = "정지"
         }

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">BookScanner</string>
+    <string name="content_timer_title">바코드를 스캔 하거나 우측에서 \n 책을 선택할수 있습니다!</string>
 
     <!-- Content Of Navigation -->
     <string name="content_drawer">네비게이션</string>
@@ -23,6 +24,7 @@
     <string name="main_text_publisher">출판사 : </string>
     <string name="main_text_ct_date">최초 등록일 : </string>
     <string name="main_text_md_date">최근 독서일 : </string>
+    <string name="main_text_btn_save">저장하기</string>
 
     <string name="drawer_text_delete">삭제</string>
     <string name="drawer_text_delete_all">초기화</string>

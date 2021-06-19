@@ -4,10 +4,14 @@ package kr.kro.fatcats.bookscanner.model
 import com.google.gson.annotations.SerializedName
 
 data class BookInfo(
-    @SerializedName("docs")
-    val docs: ArrayList<Doc>?,
-    @SerializedName("PAGE_NO")
-    val pAGENO: String?,
-    @SerializedName("TOTAL_COUNT")
-    val tOTALCOUNT: String?
+    @SerializedName("display")
+    val display: Int,
+    @SerializedName("items")
+    val items: List<Item>,
+    @SerializedName("lastBuildDate")
+    val lastBuildDate: String,
+    @SerializedName("start")
+    val start: Int,
+    @SerializedName("total")
+    val total: Int
 )

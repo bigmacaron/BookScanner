@@ -1,29 +1,21 @@
 package kr.kro.fatcats.bookscanner.util
 
 import android.annotation.SuppressLint
-import android.app.ActionBar
 import android.util.Log
-import android.view.Gravity
 import android.view.Gravity.END
 import android.view.Gravity.START
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import kr.kro.fatcats.bookscanner.R
 import kr.kro.fatcats.bookscanner.model.BookInfo
-import kr.kro.fatcats.bookscanner.model.Doc
-import org.jetbrains.anko.linearLayout
-import org.jetbrains.anko.matchParent
 import java.util.*
 
 @SuppressLint("SetTextI18n")
-
 @BindingAdapter("bindDrawerTime")
 fun bindViewDrawerTime(view: TextView, values: Long?) {
     val minutes = ((values?.div(1000))?.div(60))
@@ -41,6 +33,7 @@ fun bindViewTimerButtonText(view: TextView, values: Boolean?) {
     }
 }
 
+@SuppressLint("SetTextI18n")
 @BindingAdapter("bindTotalTime")
 fun bindViewTotalTime(view: TextView, values: String?) {
     values?.let {
@@ -82,16 +75,16 @@ fun bindViewDrawerType(view: FrameLayout, values: String?) {
 
 @BindingAdapter("bindTitle")
 fun bindViewTitle(view: TextView, values: BookInfo?) {
-    if(!values?.docs.isNullOrEmpty()){
-        view.text = "${values?.docs?.get(0)?.title}"
+    if(!values?.items.isNullOrEmpty()){
+        view.text = "${values?.items?.get(0)?.title}"
     }else{
         view.text =""
     }
 }
 @BindingAdapter("bindAuthor")
 fun bindViewAuthor(view: TextView, values: BookInfo?) {
-    if(!values?.docs.isNullOrEmpty()){
-        view.text = "${values?.docs?.get(0)?.author}"
+    if(!values?.items.isNullOrEmpty()){
+        view.text = "${values?.items?.get(0)?.author}"
     }else{
         view.text =""
     }

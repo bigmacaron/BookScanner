@@ -6,6 +6,7 @@
     <data>
         <import type="android.view.View"/>
         <variable name="barcodeData" type="String" />
+        <variable name="isRoom" type="Boolean" />
         <variable name="viewModel" type="kr.kro.fatcats.bookscanner.model.BookViewModel" />
     </data>
 
@@ -23,50 +24,50 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:text="@{barcodeData}"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="30dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{barcodeData}"
             android:visibility="@{barcodeData == null ? View.GONE : View.VISIBLE}"
-            tools:text="바코드"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/barcode_view" />
+            app:layout_constraintStart_toEndOf="@+id/btn_re_scan"
+            app:layout_constraintTop_toBottomOf="@+id/barcode_view"
+            tools:text="바코드" />
 
         <Button
             android:id="@+id/btn_re_scan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
             android:clickable="true"
             android:focusable="true"
+            android:background="@drawable/ic_replay_black_24dp"
+            android:visibility="@{barcodeData == null ? View.GONE : View.VISIBLE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/sub_button_re_confirm"
             android:visibility="@{barcodeData == null ? View.GONE : View.VISIBLE}"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_confirm"
-            app:layout_constraintEnd_toStartOf="@+id/textView2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btn_confirm" />
+            app:layout_constraintEnd_toEndOf="@+id/btn_re_scan"
+            app:layout_constraintStart_toStartOf="@+id/btn_re_scan"
+            app:layout_constraintTop_toBottomOf="@+id/btn_re_scan" />
 
-        <Button
-            android:id="@+id/btn_confirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/sub_button_confirm"
-            android:visibility="@{barcodeData == null ? View.GONE : View.VISIBLE}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             bindTitle="@{viewModel.bookInfo}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_re_scan"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
             tools:text="책제목" />
 

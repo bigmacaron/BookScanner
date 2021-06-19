@@ -71,14 +71,15 @@ class BookViewModel(private val bookRepository: BookRepository?): ViewModel() ,C
         bookRepository?.getVideoData("${barcodeData.value}")?.let { response ->
             Log.d("response", "response=> $response")
             if(response.isSuccessful){
+                Log.d("loadBookInfo","book 함수 진입 => ${response.toString()}")
                 response.body()?.let {
                     Log.d("loadBookInfo","book 함수 진입 => $it")
                     _bookInfo.postValue(it)
-                    if(it.docs?.size!! > 0){
-                         _bookTitle.postValue(it.docs[0].title)
-                         _bookAuthor.postValue(it.docs[0].author)
-                         _bookUrl.postValue(it.docs[0].url)
-                         _bookPublisher.postValue(it.docs[0].publisher)
+                    if(it.items?.size!! > 0){
+                         _bookTitle.postValue(it.items[0].title)
+                         _bookAuthor.postValue(it.items[0].author)
+                         _bookUrl.postValue(it.items[0].url)
+                         _bookPublisher.postValue(it.items[0].publisher)
                     }else{
                         showToast("죄송합니다.정보가 없습니다.")
                     }

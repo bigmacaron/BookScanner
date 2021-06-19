@@ -12,7 +12,8 @@ class MyApplication : Application(){
     override fun onCreate() {
         super.onCreate()
         Preferences.init(this)
-        Preferences.certKey = "3a9a9ce9afd7ffc5aae440e6e58f9f38deb2788d689eb7d69edddbbaaed6817f"
+        Preferences.id = "8eztkpjWpxH0nyI0ljuF"
+        Preferences.secret = "8x7z5sgVle"
 //        KakaoSdk.init(this, getString(R.string.kakao_app_key)) // Kakao AppKey 초기화
         instance = this
     }

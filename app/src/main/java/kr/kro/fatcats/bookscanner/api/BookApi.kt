@@ -7,12 +7,10 @@ import retrofit2.http.*
 
 interface BookApi {
 
-    @GET("landingPage/SearchApi.do")
+    @GET("v1/search/book_adv")
     suspend fun getBookInfo(
-        @Query("cert_key") cert_key: String?,
-        @Query("result_style") result_style : String?,
-        @Query("page_no") page_no : String?,
-        @Query("page_size") page_size : String?,
-        @Query("isbn") isbn : String?
+        @Header("X-Naver-Client-Id") id:String,
+        @Header("X-Naver-Client-Secret") secret:String,
+        @Query("d_isbn") isbn : String?
     ): Response<BookInfo?>
 }

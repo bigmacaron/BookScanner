@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.*
 import kr.kro.fatcats.bookscanner.activites.MainActivity
@@ -18,6 +19,7 @@ import kr.kro.fatcats.bookscanner.fragment.ContentFragment
 import kr.kro.fatcats.bookscanner.model.BookViewModel
 import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
 import kr.kro.fatcats.bookscanner.model.ListInfo
+import kr.kro.fatcats.bookscanner.util.SwipeHelperCallback
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.yesButton
@@ -32,7 +34,7 @@ class DrawerFragment : Fragment() , CoroutineScope{
     private lateinit var binding: FragmentDrawerBinding
     private lateinit var mBookViewModel: BookViewModel
     private lateinit var db : RoomBookInfoDao
-    private lateinit var mAdapter : DrawerAdapter
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         db = DatabaseProvider.provideDB(requireContext().applicationContext).roomBookInfoDao()
@@ -57,6 +59,13 @@ class DrawerFragment : Fragment() , CoroutineScope{
             initDb()
         }
         initBtn()
+        initSwipeHelper()
+    }
+
+    private fun initSwipeHelper(){
+        val swipeHelperCallback = SwipeHelperCallback()
+        val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
+        itemTouchHelper.attachToRecyclerView(binding.rvBookList)
     }
 
     private fun initBtn() {
@@ -72,7 +81,7 @@ class DrawerFragment : Fragment() , CoroutineScope{
         binding.rvBookList.apply {
             setHasFixedSize(true)
             setItemViewCacheSize(20)
-            mAdapter = DrawerAdapter(db)
+            mAdapter = DrawerAdapter(db,binding.root.context)
             adapter = mAdapter
         }
     }
@@ -120,7 +129,7 @@ class DrawerFragment : Fragment() , CoroutineScope{
     companion object {
 
         private val TAG = DrawerFragment::class.java.simpleName
-
+        lateinit var mAdapter : DrawerAdapter
         fun newInstance() = DrawerFragment().apply {
             arguments = androidx.core.os.bundleOf()
         }
