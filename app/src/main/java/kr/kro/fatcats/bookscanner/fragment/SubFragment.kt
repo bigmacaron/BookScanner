@@ -2,6 +2,8 @@ package kr.kro.fatcats.bookscanner.fragment
 
 import android.Manifest
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +18,7 @@ import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import kotlinx.coroutines.*
 import kr.kro.fatcats.bookscanner.BR
+import kr.kro.fatcats.bookscanner.activites.MainActivity
 import kr.kro.fatcats.bookscanner.api.BookRepository
 import kr.kro.fatcats.bookscanner.api.DatabaseProvider
 import kr.kro.fatcats.bookscanner.databinding.FragmentSubBinding
@@ -130,6 +133,9 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
             when(type){
                 Constants.DialogType.REGISTER ->{
                     insertDbForBarcode(insertData)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        (activity as MainActivity).openDrawer()
+                    }, 600)
                 }
                 Constants.DialogType.TIMER ->{
                     mBookViewModel.mainBookInfo.postValue(mBookViewModel.barcodeData.value?.toLong()?.let {
