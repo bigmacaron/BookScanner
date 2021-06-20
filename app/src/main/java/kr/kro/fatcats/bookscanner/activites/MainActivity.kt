@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
 
         setContentView(binding.root)
         initView(savedInstanceState)
-        moveSplash()
     }
 
     private fun initView(savedInstanceState: Bundle?) {
@@ -74,15 +73,6 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
 
     private fun showToast(msg: String) {
         toast(msg)
-    }
-
-    private fun moveSplash() {
-//        val intent = if (Preferences.first) {
-//            Intent(this, IntroActivity::class.java)
-//        } else {
-//            Intent(this, SplashActivity::class.java)
-//        }
-//        startActivity(intent) // 화면 생성 후 로딩화면으로 이동
     }
 
     override fun openDrawer() {

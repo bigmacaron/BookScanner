@@ -80,7 +80,6 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
         cameraStop()
     }
 
-
     private suspend fun dialogShow() =  withContext(Dispatchers.IO){
         val regex = "^[0-9]+$".toRegex()
         Log.d("booooool","${mBookViewModel.barcodeData.value?.substring(0)?.matches(regex) == true}")
@@ -115,6 +114,8 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
             withContext(Dispatchers.Main){toast("잘못된 바코드 입니다.")}
         }
     }
+
+    //Dialog interface function
     override fun onClick(type: String) {
         val now =  SimpleDateFormat("yyyy.MM.dd HH:mm:ss", Locale.KOREA).format(Calendar.getInstance().time)
         val insertData = with(mBookViewModel){
@@ -135,7 +136,7 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
                     insertDbForBarcode(insertData)
                     Handler(Looper.getMainLooper()).postDelayed({
                         (activity as MainActivity).openDrawer()
-                    }, 600)
+                    }, 800)
                 }
                 Constants.DialogType.TIMER ->{
                     mBookViewModel.mainBookInfo.postValue(mBookViewModel.barcodeData.value?.toLong()?.let {
@@ -182,6 +183,7 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
             .check()
     }
 
+
     private fun initScanner() {
         binding.barcodeView.setStatusText("바코드를 스캔해 주세요")
         binding.barcodeView.decodeContinuous(object : BarcodeCallback {
@@ -192,13 +194,14 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
         })
     }
 
-
+    // 다시스캔 (검색용 주석)
     private fun buttonSet(){
         binding.btnReScan.setOnClickListener {
             mBookViewModel.barcodeData.postValue(null)
             mBookViewModel.bookInfo.postValue(null)
         }
     }
+
     private suspend fun insertDbForBarcode(insertData : RoomBookInfo) = withContext(Dispatchers.IO){
         db.insert(insertData)
         mBookViewModel.bookListSize.postValue(db.getAll().size)
@@ -206,7 +209,6 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
     private suspend fun getRoomBookInfo(isbn : Long) = withContext(Dispatchers.IO){
         db.getDataForIsbn(isbn)
     }
-
 
     companion object {
         private val TAG = SubFragment::class.java.simpleName

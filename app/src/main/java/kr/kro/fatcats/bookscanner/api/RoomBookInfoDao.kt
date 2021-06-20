@@ -30,6 +30,6 @@ interface RoomBookInfoDao {
     @Query("UPDATE RoomBookInfo SET time = :time WHERE isbn = :isbn")
     fun updateTime(time : Long?,isbn: Long)
 
-    @Query("UPDATE RoomBookInfo SET ct_date = :now WHERE isbn = :isbn")
+    @Query("UPDATE RoomBookInfo SET mod_date = :now WHERE isbn = :isbn")
     fun updateLastDate(now : String?,isbn: Long)
 }

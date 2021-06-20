@@ -1,5 +1,6 @@
 package kr.kro.fatcats.bookscanner.fragment.drawer
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
@@ -18,9 +19,11 @@ import kr.kro.fatcats.bookscanner.activites.MainActivity.Companion.mBookViewMode
 import kr.kro.fatcats.bookscanner.api.BookRepository
 import kr.kro.fatcats.bookscanner.api.RoomBookInfoDao
 import kr.kro.fatcats.bookscanner.databinding.ItemBookListBinding
+import kr.kro.fatcats.bookscanner.fragment.ContentFragment.Companion.contentFragment
 import kr.kro.fatcats.bookscanner.model.BookViewModel
 import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
 import kr.kro.fatcats.bookscanner.model.ListInfo
+import kr.kro.fatcats.bookscanner.util.Constants
 import org.jetbrains.anko.toast
 
 class DrawerAdapter (private val db : RoomBookInfoDao,context : Context):RecyclerView.Adapter<DrawerAdapter.ViewHolder>() {
@@ -38,6 +41,7 @@ class DrawerAdapter (private val db : RoomBookInfoDao,context : Context):Recycle
             bind(item,View.OnClickListener {
                 runBlocking(Dispatchers.IO) {
                     mBookViewModel.mainBookInfo.postValue( db.getDataForIsbn(item.isbn!!.toLong()))
+                    mBookViewModel.fragment.postValue(Constants.DialogType.TIMER)
                 }
             })
         }
@@ -58,6 +62,7 @@ class DrawerAdapter (private val db : RoomBookInfoDao,context : Context):Recycle
     fun refresh(){
         notifyDataSetChanged()
     }
+
     fun removeData(position: Int) {
         val alert : AlertDialog.Builder = AlertDialog.Builder(context)
         alert.setTitle("삭제")

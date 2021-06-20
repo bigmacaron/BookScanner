@@ -1,36 +1,47 @@
 package kr.kro.fatcats.bookscanner.fragment
 
 import android.content.Context
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.*
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.*
 import kr.kro.fatcats.bookscanner.R
 import kr.kro.fatcats.bookscanner.activites.MainActivity
 import kr.kro.fatcats.bookscanner.api.BookRepository
 import kr.kro.fatcats.bookscanner.databinding.FragmentContentBinding
-import kr.kro.fatcats.bookscanner.databinding.FragmentMainBinding
 import kr.kro.fatcats.bookscanner.listeners.OnFragmentInteractionListener
 import kr.kro.fatcats.bookscanner.model.BookViewModel
 import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
+import kotlin.coroutines.CoroutineContext
 
-class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelectedListener{
+class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelectedListener, CoroutineScope ,
+    SensorEventListener {
 
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+    private val job = Job()
     private var mListener: OnFragmentInteractionListener? = null
     private lateinit var binding: FragmentContentBinding
     private lateinit var actionbar: ActionBar
     private lateinit var mBookViewModel: BookViewModel
     private lateinit var mainFragment: MainFragment
     private lateinit var subFragment: SubFragment
+
+    private lateinit var sensorManager: SensorManager
 
 
     private var selectFragment: Fragment? = null
@@ -69,12 +80,27 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
         setActionbar()
         replaceFragment(mainFragment)
         initLiveData()
+        getSensor()
+    }
+
+    private fun getSensor() {
+
+
+
     }
 
     private fun initLiveData(){
         mBookViewModel.fragment.observe(viewLifecycleOwner,{
-
+            Handler(Looper.getMainLooper()).postDelayed({
+                selectTimer()
+                (activity as MainActivity).closeDrawer()
+            }, 800)
         })
+    }
+
+    private fun selectTimer(){
+        binding.bottomNavigation.getMenu().getItem(0).setChecked(true)
+        onNavigationItemSelected(binding.bottomNavigation.getMenu().getItem(0))
     }
 
     private fun setupFragment() {
@@ -130,12 +156,12 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         Log.v(TAG, "onNavigationItemSelected() => ${item.itemId}")
         return when (item.itemId) {
-            R.id.action_home -> {
+            R.id.action_timer -> {
                 MainActivity.mBookViewModel.cameraStop.postValue(null)
                 replaceFragment(mainFragment)
                 true
             }
-            R.id.action_progress -> {
+            R.id.action_scanner -> {
                 MainActivity.mBookViewModel.cameraStop.postValue("play")
                 replaceFragment(subFragment)
                 true
@@ -144,13 +170,34 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
         }
     }
 
-
     companion object {
-
+        val contentFragment = this
         private val TAG = ContentFragment::class.java.simpleName
 
         fun newInstance() = ContentFragment().apply {
             arguments = bundleOf()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sensorManager.registerListener(this,sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL)
+
+    }
+
+    override fun onPause() {
+        Log.d(TAG, "onPause: ")
+        super.onPause()
+        sensorManager.unregisterListener(this)
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        val x : Float = event?.values?.get(0) as Float
+        val y : Float = event?.values?.get(1) as Float
+        val z : Float = event?.values?.get(2) as Float
+
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
     }
 }
