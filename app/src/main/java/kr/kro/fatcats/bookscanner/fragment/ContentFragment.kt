@@ -86,7 +86,9 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
 
         mBookViewModel.sensorXyzData.observe(viewLifecycleOwner,{
             launch {
-                startTimer(it)
+                if(mBookViewModel.mainBookInfo.value != null){
+                    startTimer(it)
+                }
             }
         })
     }
