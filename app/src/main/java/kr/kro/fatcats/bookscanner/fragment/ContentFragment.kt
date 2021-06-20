@@ -1,10 +1,6 @@
 package kr.kro.fatcats.bookscanner.fragment
 
 import android.content.Context
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -28,8 +24,7 @@ import kr.kro.fatcats.bookscanner.model.BookViewModel
 import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
 import kotlin.coroutines.CoroutineContext
 
-class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelectedListener, CoroutineScope ,
-    SensorEventListener {
+class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelectedListener, CoroutineScope  {
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -40,9 +35,6 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
     private lateinit var mBookViewModel: BookViewModel
     private lateinit var mainFragment: MainFragment
     private lateinit var subFragment: SubFragment
-
-    private lateinit var sensorManager: SensorManager
-
 
     private var selectFragment: Fragment? = null
 
@@ -80,14 +72,9 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
         setActionbar()
         replaceFragment(mainFragment)
         initLiveData()
-        getSensor()
-    }
-
-    private fun getSensor() {
+      }
 
 
-
-    }
 
     private fun initLiveData(){
         mBookViewModel.fragment.observe(viewLifecycleOwner,{
@@ -96,6 +83,20 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
                 (activity as MainActivity).closeDrawer()
             }, 800)
         })
+
+        mBookViewModel.sensorXyzData.observe(viewLifecycleOwner,{
+            launch {
+                startTimer(it)
+            }
+        })
+    }
+
+    private suspend fun startTimer(array : IntArray?) = withContext(Dispatchers.IO){
+        delay(1000)
+        if (array?.get(2)!! < -5) {
+            Log.e("startTimer" , "${array?.get(2)!!}")
+            mBookViewModel.startTimer()
+        }
     }
 
     private fun selectTimer(){
@@ -177,27 +178,5 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
         fun newInstance() = ContentFragment().apply {
             arguments = bundleOf()
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        sensorManager.registerListener(this,sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL)
-
-    }
-
-    override fun onPause() {
-        Log.d(TAG, "onPause: ")
-        super.onPause()
-        sensorManager.unregisterListener(this)
-    }
-
-    override fun onSensorChanged(event: SensorEvent?) {
-        val x : Float = event?.values?.get(0) as Float
-        val y : Float = event?.values?.get(1) as Float
-        val z : Float = event?.values?.get(2) as Float
-
-    }
-
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
     }
 }

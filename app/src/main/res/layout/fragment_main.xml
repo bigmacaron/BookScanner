@@ -152,8 +152,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
             <TextView
-                android:id="@+id/tv_start"
-                bindTimerButtonText="@{timerButton}"
+                android:id="@+id/tv_timer_start"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginStart="50dp"
@@ -162,6 +161,22 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
+                android:text="시작"
+                android:visibility="@{timerButton == false ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_time_view" />
+            <TextView
+                android:id="@+id/tv_timer_pause"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/background_round_border_gray"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="정지"
+                android:gravity="center"
+                android:visibility="@{timerButton == true ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_time_view" />
 
@@ -176,7 +191,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:text="@string/main_text_btn_save"
-                android:visibility="@{timerButton == true ? View.VISIBLE : View.GONE}"
+                android:visibility="@{timerButton == false ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_time_view" />
 

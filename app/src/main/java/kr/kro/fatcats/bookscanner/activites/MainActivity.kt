@@ -1,7 +1,14 @@
 package kr.kro.fatcats.bookscanner.activites
 
+import android.content.Context
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -11,7 +18,6 @@ import kr.kro.fatcats.bookscanner.R
 import kr.kro.fatcats.bookscanner.api.BookRepository
 import kr.kro.fatcats.bookscanner.databinding.ActivityMainBinding
 import kr.kro.fatcats.bookscanner.fragment.ContentFragment
-import kr.kro.fatcats.bookscanner.fragment.MainFragment
 import kr.kro.fatcats.bookscanner.fragment.drawer.DrawerFragment
 import kr.kro.fatcats.bookscanner.model.BookViewModel
 import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
@@ -20,15 +26,19 @@ import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.yesButton
+import java.util.*
 
-class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, SensorEventListener {
 
+    private lateinit var sensorXyzManager: SensorManager
+//    private lateinit var sensorProximityManager : SensorManager
     private lateinit var binding : ActivityMainBinding
     private var fragment: Fragment? = null
     private var ordSorFrag: Fragment? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        this.sensorXyzManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+//        this.sensorProximityManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).apply {
             this@MainActivity.let {
@@ -37,7 +47,6 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
                 lifecycleOwner = this@MainActivity
             }
         }
-
         setContentView(binding.root)
         initView(savedInstanceState)
     }
@@ -111,5 +120,47 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener {
     companion object{
         private val TAG = MainActivity::class.java.simpleName
         lateinit var mBookViewModel: BookViewModel
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        sensorProximityManager.registerListener(this,sensorProximityManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),SensorManager.SENSOR_DELAY_UI)
+        sensorXyzManager.registerListener(this,sensorXyzManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL)
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+//        sensorProximityManager.unregisterListener(this)
+        sensorXyzManager.unregisterListener(this)
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+//        if (event!!.sensor.type == Sensor.TYPE_PROXIMITY) {
+//            val light : Float = event?.values?.get(0) as Float
+//            Handler(Looper.getMainLooper()).postDelayed({
+//            mBookViewModel.sensorProximityData.postValue(light.toInt())
+//            }, 1000)
+//            Log.e(TAG, "onSensorChanged: $light")
+//        }else if(event!!.sensor.type == Sensor.TYPE_ACCELEROMETER){
+//            val x : Float = event?.values?.get(0) as Float
+//            val y : Float = event?.values?.get(1) as Float
+//            val z : Float = event?.values?.get(2) as Float
+//            Handler(Looper.getMainLooper()).postDelayed({
+//                mBookViewModel.sensorXyzData.postValue(intArrayOf(x.toInt(),y.toInt(),z.toInt()))
+//                Log.d(TAG, "onSensorChanged: ${x.toInt()} : ${y.toInt()} : ${z.toInt()}")
+//            }, 1000)
+//        }
+        Handler(Looper.getMainLooper()).postDelayed({
+        val x : Float = event?.values?.get(0) as Float
+        val y : Float = event?.values?.get(1) as Float
+        val z : Float = event?.values?.get(2) as Float
+            mBookViewModel.sensorXyzData.postValue(intArrayOf(x.toInt(),y.toInt(),z.toInt()))
+            Log.d(TAG, "onSensorChanged: ${x.toInt()} : ${y.toInt()} : ${z.toInt()}")
+        }, 2000)
+
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
     }
 }

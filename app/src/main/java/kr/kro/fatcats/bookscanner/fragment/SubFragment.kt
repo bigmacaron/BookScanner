@@ -178,7 +178,7 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
             .setRationaleMessage("권한을 허용해주세요.")
             .setDeniedMessage("권한이 거부되었습니다. 설정 > 권한에서 허용해주세요.")
             .setPermissions(
-                Manifest.permission.CAMERA // 저장 권한
+                Manifest.permission.CAMERA
             )
             .check()
     }

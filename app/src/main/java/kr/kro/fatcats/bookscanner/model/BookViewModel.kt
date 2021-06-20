@@ -33,6 +33,9 @@ class BookViewModel(private val bookRepository: BookRepository?): ViewModel() ,C
     private val _totalTime =SingleLiveEvent<Long?>()
     private val _cameraStop = SingleLiveEvent<String?>()
     private val _fragment = SingleLiveEvent<String?>()
+    private val _sensorData = SingleLiveEvent<IntArray?>()
+    private val _startTimer = SingleLiveEvent<Boolean>()
+//    private val _sensorLightData = SingleLiveEvent<Int?>()
 
     val barcodeData : SingleLiveEvent<String?>
         get() = _barcodeData
@@ -62,10 +65,25 @@ class BookViewModel(private val bookRepository: BookRepository?): ViewModel() ,C
         get() = _cameraStop
     val fragment : SingleLiveEvent<String?>
         get() = _fragment
+    val sensorXyzData : SingleLiveEvent<IntArray?>
+        get() = _sensorData
+//    val sensorProximityData : SingleLiveEvent<Int?>
+//        get() = _sensorLightData
+    val startTimer : SingleLiveEvent<Boolean>
+        get() = _startTimer
+
 
     init {
         _barcodeData.value = null
+        _startTimer.value = false
     }
+
+    suspend fun startTimer()= withContext(Dispatchers.IO){
+        if(_startTimer.value == false){
+            _startTimer.postValue(true)
+        }
+    }
+
 
     suspend fun loadBookInfo() = withContext(Dispatchers.IO){
         bookRepository?.getVideoData("${barcodeData.value}")?.let { response ->
