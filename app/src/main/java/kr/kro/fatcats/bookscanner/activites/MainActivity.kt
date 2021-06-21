@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, SensorE
     override fun onResume() {
         super.onResume()
         sensorXyzManager.registerListener(this,sensorXyzManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL)
-        sensorProximityManager.registerListener(this,sensorProximityManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),SensorManager.SENSOR_DELAY_UI)
+        sensorProximityManager.registerListener(this,sensorProximityManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),SensorManager.SENSOR_DELAY_NORMAL)
 
     }
 
