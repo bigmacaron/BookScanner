@@ -51,7 +51,7 @@
                         android:layout_height="match_parent"
                         android:contentDescription="@string/content_description_image_book_background"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/book_background"
+                        android:src="@mipmap/main_book_backgroud"
                         />
                 </androidx.cardview.widget.CardView>
             </FrameLayout>
@@ -61,7 +61,7 @@
                 android:layout_width="100dp"
                 android:layout_height="130dp"
                 android:layout_marginTop="125dp"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">

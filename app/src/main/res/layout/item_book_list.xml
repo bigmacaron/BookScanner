@@ -26,7 +26,7 @@
                     android:id="@+id/iv_book"
                     android:layout_width="100dp"
                     android:layout_height="120dp"
-                    app:cardCornerRadius="5dp"
+                    app:cardCornerRadius="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -181,6 +181,7 @@
                     android:layout_width="60dp"
                     android:layout_height="0dp"
                     android:layout_marginBottom="10dp"
+                    app:cardCornerRadius="10dp"
                     app:cardBackgroundColor="@color/main_color_bright"
                     app:layout_constraintBottom_toTopOf="@+id/textView10"
                     app:layout_constraintEnd_toEndOf="parent"
