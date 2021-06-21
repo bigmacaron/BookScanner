@@ -28,6 +28,7 @@ class MainFragment : Fragment(), CoroutineScope {
     private lateinit var binding: FragmentMainBinding
     private lateinit var mBookViewModel: BookViewModel
     private var timerBool = false
+    private var timeArray = longArrayOf(0L,0L,0L,0L,0L,0L)
 
     private val job = Job()
     override val coroutineContext: CoroutineContext
@@ -118,9 +119,49 @@ class MainFragment : Fragment(), CoroutineScope {
             }
         })
         mBookViewModel.timer.observe(viewLifecycleOwner,{
-            Log.e("timer","it => $it")
-            binding.setVariable(BR.timer,it)
+            setTimeNumber(it)
+
         })
+    }
+
+    private fun setTimeNumber(times : Long?){
+        val hour    = ((times?.div(1000))?.div(60))?.div(60)
+        val minutes = ((times?.div(1000))?.div(60))?.rem(60)
+        val seconds = ((times?.div(1000))?.rem(60))
+        var timeLeftFormatted = String.format(Locale.getDefault(),  "%02d:%02d:%02d",hour, minutes, seconds)
+        if(seconds == null){
+            timeLeftFormatted = "00:00:00"
+        }
+        if(timeArray[0] != timeLeftFormatted.substring(0,1).toLong()){
+            timeArray[0] = timeLeftFormatted.substring(0,1).toLong()
+            binding.setVariable(BR.timer1,timeArray[0])
+        }
+        if(timeArray[1] != timeLeftFormatted.substring(1,2).toLong()){
+            timeArray[1] = timeLeftFormatted.substring(1,2).toLong()
+            binding.setVariable(BR.timer2,timeArray[1])
+        }
+        if(timeArray[2] != timeLeftFormatted.substring(3,4).toLong()){
+            timeArray[2] = timeLeftFormatted.substring(3,4).toLong()
+            binding.setVariable(BR.timer3,timeArray[2])
+        }
+        if(timeArray[3] != timeLeftFormatted.substring(4,5).toLong()){
+            timeArray[3] = timeLeftFormatted.substring(4,5).toLong()
+            binding.setVariable(BR.timer4,timeArray[3])
+        }
+        if(timeArray[4] != timeLeftFormatted.substring(6,7).toLong()){
+            timeArray[4] = timeLeftFormatted.substring(6,7).toLong()
+            binding.setVariable(BR.timer5,timeArray[4])
+        }
+        if(timeArray[5] != timeLeftFormatted.substring(7,8).toLong()){
+            timeArray[5] = timeLeftFormatted.substring(7,8).toLong()
+            binding.setVariable(BR.timer6,timeArray[5])
+        }
+
+
+
+
+
+
     }
 
     //타이머 시간 저장 버튼 -> 룸에 저장

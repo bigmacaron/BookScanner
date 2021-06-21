@@ -121,7 +121,7 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
     }
 
     private suspend fun startTimer(array : IntArray?) = withContext(Dispatchers.IO){
-        delay(1000)
+        delay(1000L)
         if (array?.get(2)!! < -5) {
             Log.e("startTimer" , "${array?.get(2)!!}")
             mBookViewModel.startTimer()

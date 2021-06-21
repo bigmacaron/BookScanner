@@ -9,7 +9,12 @@
         <variable name="publisher" type="String" />
         <variable name="url" type="String" />
         <variable name="totalTime" type="Long" />
-        <variable name="timer" type="Long" />
+        <variable name="timer1" type="Long" />
+        <variable name="timer2" type="Long" />
+        <variable name="timer3" type="Long" />
+        <variable name="timer4" type="Long" />
+        <variable name="timer5" type="Long" />
+        <variable name="timer6" type="Long" />
         <variable name="timerButton" type="Boolean" />
         <variable name="wasStartedOnce" type="String" />
         <import type="android.view.View"/>
@@ -197,7 +202,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     >
                     <TextView
-                        bindTimer1="@{timer}"
+                        bindTimer1="@{timer1}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@mipmap/timer_background"
@@ -217,7 +222,7 @@
                     app:layout_constraintStart_toEndOf="@+id/time1"
                     app:layout_constraintTop_toTopOf="@+id/time1">
                     <TextView
-                        bindTimer2="@{timer}"
+                        bindTimer2="@{timer2}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@mipmap/timer_background"
@@ -246,7 +251,7 @@
                     app:layout_constraintStart_toEndOf="@+id/textView19"
                     app:layout_constraintTop_toTopOf="@+id/time1">
                     <TextView
-                        bindTimer3="@{timer}"
+                        bindTimer3="@{timer3}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@mipmap/timer_background"
@@ -265,7 +270,7 @@
                     app:layout_constraintStart_toEndOf="@+id/time3"
                     app:layout_constraintTop_toTopOf="@+id/time1">
                     <TextView
-                        bindTimer4="@{timer}"
+                        bindTimer4="@{timer4}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@mipmap/timer_background"
@@ -296,7 +301,7 @@
                     app:layout_constraintStart_toEndOf="@+id/textView20"
                     app:layout_constraintTop_toTopOf="@+id/time1">
                     <TextView
-                        bindTimer5="@{timer}"
+                        bindTimer5="@{timer5}"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:background="@mipmap/timer_background"
@@ -317,7 +322,7 @@
                     app:layout_constraintStart_toEndOf="@+id/time5"
                     app:layout_constraintTop_toTopOf="@+id/time1">
                     <TextView
-                        bindTimer6="@{timer}"
+                        bindTimer6="@{timer6}"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:background="@mipmap/timer_background"

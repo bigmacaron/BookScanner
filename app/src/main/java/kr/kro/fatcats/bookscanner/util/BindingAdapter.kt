@@ -21,82 +21,62 @@ import java.util.*
 
 @BindingAdapter("bindTimer1")
 fun bindViewTimer1(view: TextView, values: Long?) {
-    val hour    = ((values?.div(1000))?.div(60))?.div(60)
-    val minutes = ((values?.div(1000))?.div(60))
-    val seconds = ((values?.div(1000))?.rem(60))
-    var timeLeftFormatted = String.format(Locale.getDefault(),  "%02d:%02d:%02d",hour, minutes, seconds)
-    if(seconds == null){
-        timeLeftFormatted = "00:00:00"
+    var timeLeftFormatted : Long? = values
+    if(timeLeftFormatted == null){
+        timeLeftFormatted = 0L
     }
-    view.animate().rotationX(360F).rotationXBy(360F).setDuration(200).start()
-    view.text =  timeLeftFormatted.substring(0,1)
+    view.animate().rotationX(360F).rotationXBy(360F).setDuration(400).start()
+    view.text = "$timeLeftFormatted"
 }
 
 @BindingAdapter("bindTimer2")
 fun bindViewTimer2(view: TextView, values: Long?) {
-    val hour    = ((values?.div(1000))?.div(60))?.div(60)
-    val minutes = ((values?.div(1000))?.div(60))
-    val seconds = ((values?.div(1000))?.rem(60))
-    var timeLeftFormatted = String.format(Locale.getDefault(),  "%02d:%02d:%02d",hour, minutes, seconds)
-    if(seconds == null){
-        timeLeftFormatted = "00:00:00"
+    var timeLeftFormatted : Long? = values
+    if(timeLeftFormatted == null){
+        timeLeftFormatted = 0L
     }
-    view.animate().rotationX(360F).rotationXBy(360F).setDuration(200).start()
-    view.text =  timeLeftFormatted.substring(1,2)
+    view.animate().rotationX(360F).rotationXBy(360F).setDuration(400).start()
+    view.text = "$timeLeftFormatted"
 }
 
 @BindingAdapter("bindTimer3")
 fun bindViewTimer3(view: TextView, values: Long?) {
-    val hour    = ((values?.div(1000))?.div(60))?.div(60)
-    val minutes = ((values?.div(1000))?.div(60))
-    val seconds = ((values?.div(1000))?.rem(60))
-    var timeLeftFormatted = String.format(Locale.getDefault(),  "%02d:%02d:%02d",hour, minutes, seconds)
-
-    if(seconds == null){
-        timeLeftFormatted = "00:00:00"
+    var timeLeftFormatted : Long? = values
+    if(timeLeftFormatted == null){
+        timeLeftFormatted = 0L
     }
-    view.animate().rotationX(360F).rotationXBy(360F).setDuration(200).start()
-    view.text =  timeLeftFormatted.substring(3,4)
+    view.animate().rotationX(360F).rotationXBy(360F).setDuration(400).start()
+    view.text = "$timeLeftFormatted"
 }
 
 @BindingAdapter("bindTimer4")
 fun bindViewTimer4(view: TextView, values: Long?) {
-    val hour    = ((values?.div(1000))?.div(60))?.div(60)
-    val minutes = ((values?.div(1000))?.div(60))
-    val seconds = ((values?.div(1000))?.rem(60))
-    var timeLeftFormatted = String.format(Locale.getDefault(),  "%02d:%02d:%02d",hour, minutes, seconds)
-    if(seconds == null){
-        timeLeftFormatted = "00:00:00"
+    var timeLeftFormatted : Long? = values
+    if(timeLeftFormatted == null){
+        timeLeftFormatted = 0L
     }
-    view.animate().rotationX(360F).rotationXBy(360F).setDuration(200).start()
-    view.text =  timeLeftFormatted.substring(4,5)
+    view.animate().rotationX(360F).rotationXBy(360F).setDuration(400).start()
+    view.text = "$timeLeftFormatted"
 }
 
 @BindingAdapter("bindTimer5")
 fun bindViewTimer5(view: TextView, values: Long?) {
-    val hour    = ((values?.div(1000))?.div(60))?.div(60)
-    val minutes = ((values?.div(1000))?.div(60))
-    val seconds = ((values?.div(1000))?.rem(60))
-    var timeLeftFormatted = String.format(Locale.getDefault(),  "%02d:%02d:%02d",hour, minutes, seconds)
-    if(seconds == null){
-        timeLeftFormatted = "00:00:00"
+    var timeLeftFormatted : Long? = values
+    if(timeLeftFormatted == null){
+        timeLeftFormatted = 0L
     }
-    view.animate().rotationX(360F).rotationXBy(360F).setDuration(200).start()
-    view.text =  timeLeftFormatted.substring(6,7)
+    view.animate().rotationX(360F).rotationXBy(360F).setDuration(400).start()
+    view.text = "$timeLeftFormatted"
 }
 
 @BindingAdapter("bindTimer6")
 fun bindViewTimer6(view: TextView, values: Long?) {
-    val hour    = ((values?.div(1000))?.div(60))?.div(60)
-    val minutes = ((values?.div(1000))?.div(60))
-    val seconds = ((values?.div(1000))?.rem(60))
-    var timeLeftFormatted = String.format(Locale.getDefault(),  "%02d:%02d:%02d",hour, minutes, seconds)
-    if(seconds == null){
-        timeLeftFormatted = "00:00:00"
+    var timeLeftFormatted : Long? = values
+    if(timeLeftFormatted == null){
+        timeLeftFormatted = 0L
     }
-    view.animate().rotationX(360F).rotationXBy(360F).setDuration(200).start()
-    view.text =  timeLeftFormatted.substring(7,8)
-
+    view.animate().rotationX(360F).rotationXBy(360F).setDuration(400).start()
+    view.text = "$timeLeftFormatted"
 }
 
 
@@ -122,7 +102,7 @@ fun bindViewTimerButtonText(view: TextView, values: Boolean?) {
 @BindingAdapter("bindTotalTime")
 fun bindViewTotalTime(view: TextView, values: Long?) {
     val hour    = ((values?.div(1000))?.div(60))?.div(60)
-    val minutes = ((values?.div(1000))?.div(60))
+    val minutes = ((values?.div(1000))?.div(60))?.rem(60)
     val seconds = ((values?.div(1000))?.rem(60))
     var timeLeftFormatted = String.format(Locale.getDefault(),  "%02d:%02d:%02d",hour, minutes, seconds)
     if(seconds == null){

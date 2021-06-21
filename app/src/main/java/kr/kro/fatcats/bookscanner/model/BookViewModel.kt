@@ -73,6 +73,7 @@ class BookViewModel(private val bookRepository: BookRepository?): ViewModel() ,C
         get() = _startTimer
 
 
+
     init {
         _barcodeData.value = null
         _startTimer.value = false
