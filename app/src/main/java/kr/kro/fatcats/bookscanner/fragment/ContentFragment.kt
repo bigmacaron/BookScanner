@@ -35,6 +35,8 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
     private lateinit var mBookViewModel: BookViewModel
     private lateinit var mainFragment: MainFragment
     private lateinit var subFragment: SubFragment
+    private lateinit var params : WindowManager.LayoutParams
+    private var originBright : Float = 0f
 
     private var selectFragment: Fragment? = null
 
@@ -67,13 +69,28 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
     }
 
     private fun initView() {
+        initBright()
         binding.bottomNavigation.setOnNavigationItemSelectedListener(this)
         setupFragment()
         setActionbar()
         replaceFragment(mainFragment)
         initLiveData()
-      }
+    }
 
+    private fun initBright(){
+        params = (activity as MainActivity).window.attributes
+        originBright = params.screenBrightness
+    }
+
+    private fun brightSetOrigin(){
+        params.screenBrightness = originBright
+        (activity as MainActivity).window.attributes = params
+    }
+
+    private fun brightSetMin(){
+        params.screenBrightness = 0f
+        (activity as MainActivity).window.attributes = params
+    }
 
 
     private fun initLiveData(){
@@ -88,6 +105,16 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
             launch {
                 if(mBookViewModel.mainBookInfo.value != null){
                     startTimer(it)
+                }
+            }
+        })
+
+        mBookViewModel.sensorProximityData.observe(viewLifecycleOwner,{
+            mBookViewModel.sensorXyzData.value?.get(2)?.let { xyz->
+                if(xyz < -5 && it == 0){
+                    brightSetMin()
+                }else{
+                    brightSetOrigin()
                 }
             }
         })

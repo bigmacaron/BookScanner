@@ -27,6 +27,8 @@ android {
 //            proguardFile 'proguard-rules.pro'
 //            // 디버그에 필요한 프로가드 설정
 //            proguardFile 'proguard-debug.pro'
+//            8eztkpjWpxH0nyI0ljuF
+//            8x7z5sgVle
         }
         release {
             minifyEnabled true

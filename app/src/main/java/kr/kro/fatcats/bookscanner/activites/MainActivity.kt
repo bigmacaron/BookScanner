@@ -31,14 +31,14 @@ import java.util.*
 class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, SensorEventListener {
 
     private lateinit var sensorXyzManager: SensorManager
-//    private lateinit var sensorProximityManager : SensorManager
+    private lateinit var sensorProximityManager : SensorManager
     private lateinit var binding : ActivityMainBinding
     private var fragment: Fragment? = null
     private var ordSorFrag: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         this.sensorXyzManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-//        this.sensorProximityManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        this.sensorProximityManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).apply {
             this@MainActivity.let {
@@ -124,41 +124,33 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, SensorE
 
     override fun onResume() {
         super.onResume()
-//        sensorProximityManager.registerListener(this,sensorProximityManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),SensorManager.SENSOR_DELAY_UI)
         sensorXyzManager.registerListener(this,sensorXyzManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL)
+        sensorProximityManager.registerListener(this,sensorProximityManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),SensorManager.SENSOR_DELAY_UI)
 
     }
 
     override fun onPause() {
         super.onPause()
-//        sensorProximityManager.unregisterListener(this)
         sensorXyzManager.unregisterListener(this)
+        sensorProximityManager.unregisterListener(this)
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-//        if (event!!.sensor.type == Sensor.TYPE_PROXIMITY) {
-//            val light : Float = event?.values?.get(0) as Float
-//            Handler(Looper.getMainLooper()).postDelayed({
-//            mBookViewModel.sensorProximityData.postValue(light.toInt())
-//            }, 1000)
-//            Log.e(TAG, "onSensorChanged: $light")
-//        }else if(event!!.sensor.type == Sensor.TYPE_ACCELEROMETER){
-//            val x : Float = event?.values?.get(0) as Float
-//            val y : Float = event?.values?.get(1) as Float
-//            val z : Float = event?.values?.get(2) as Float
-//            Handler(Looper.getMainLooper()).postDelayed({
-//                mBookViewModel.sensorXyzData.postValue(intArrayOf(x.toInt(),y.toInt(),z.toInt()))
-//                Log.d(TAG, "onSensorChanged: ${x.toInt()} : ${y.toInt()} : ${z.toInt()}")
-//            }, 1000)
-//        }
-        Handler(Looper.getMainLooper()).postDelayed({
-        val x : Float = event?.values?.get(0) as Float
-        val y : Float = event?.values?.get(1) as Float
-        val z : Float = event?.values?.get(2) as Float
-            mBookViewModel.sensorXyzData.postValue(intArrayOf(x.toInt(),y.toInt(),z.toInt()))
-            Log.d(TAG, "onSensorChanged: ${x.toInt()} : ${y.toInt()} : ${z.toInt()}")
-        }, 2000)
-
+        if(event!!.sensor.type == Sensor.TYPE_ACCELEROMETER){
+            val x : Float = event?.values?.get(0) as Float
+            val y : Float = event?.values?.get(1) as Float
+            val z : Float = event?.values?.get(2) as Float
+            Handler(Looper.getMainLooper()).postDelayed({
+                mBookViewModel.sensorXyzData.postValue(intArrayOf(x.toInt(),y.toInt(),z.toInt()))
+                Log.d(TAG, "onSensorChanged: ${x.toInt()} : ${y.toInt()} : ${z.toInt()}")
+            }, 2000)
+        }else if (event!!.sensor.type == Sensor.TYPE_PROXIMITY) {
+            val proximity : Float = event?.values?.get(0) as Float
+            Handler(Looper.getMainLooper()).postDelayed({
+                mBookViewModel.sensorProximityData.postValue(proximity.toInt())
+            }, 2000)
+            Log.e(TAG, "onSensorChanged: $proximity")
+        }
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
