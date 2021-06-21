@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kr.kro.fatcats.bookscanner">
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-
 
     <application
         android:name=".MyApplication"
@@ -15,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookScanner"
         android:usesCleartextTraffic="true">
+<!--       sample ca-app-pub-3940256099942544~3347511713 -->
+<!--       main ca-app-pub-8156320750620852~1230896740-->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
         <activity android:name=".activites.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

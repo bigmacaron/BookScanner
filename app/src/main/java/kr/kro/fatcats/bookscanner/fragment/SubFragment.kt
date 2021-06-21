@@ -11,6 +11,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import com.google.zxing.ResultPoint
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
@@ -37,6 +40,7 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
 
     private lateinit var binding: FragmentSubBinding
     private lateinit var mBookViewModel: BookViewModel
+
     private val db by lazy {DatabaseProvider.provideDB(requireContext().applicationContext).roomBookInfoDao() }
     private val dialog by lazy {  BookInfoDialog(binding.root.context)}
     private val job = Job()
@@ -51,8 +55,14 @@ class SubFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener ,CoroutineS
             lifecycleOwner = requireActivity()
             viewModel = mBookViewModel
         }
+
+
         initView()
+        setAd()
         return binding.root
+    }
+    private fun setAd(){
+        binding.adView.loadAd(AdRequest.Builder().build())
     }
     override fun onRefresh() {
 

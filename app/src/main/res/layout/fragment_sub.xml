@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
@@ -73,6 +74,19 @@
             app:layout_constraintStart_toEndOf="@+id/btn_re_scan"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
             tools:text="책제목" />
+<!--sample ca-app-pub-3940256099942544/6300978111 -->
+<!--main ca-app-pub-8156320750620852/3881110817   -->
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
