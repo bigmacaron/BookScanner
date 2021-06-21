@@ -70,7 +70,7 @@ class DrawerFragment : Fragment() , CoroutineScope{
 
     private fun initBtn() {
         binding.btnDeleteAll.setOnClickListener {
-            alert("정말 초기화 하시겠습니까? \n 지운 데이터는 복구가 불가능 합니다" ){
+            alert("정말 초기화 하시겠습니까? \n지운 데이터는 복구가 불가능 합니다" ){
                 yesButton { launch { deleteAll() } }
                 noButton { it.dismiss() }
             }.show()

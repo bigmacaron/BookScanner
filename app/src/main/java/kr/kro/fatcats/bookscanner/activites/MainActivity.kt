@@ -142,14 +142,12 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, SensorE
             val z : Float = event?.values?.get(2) as Float
             Handler(Looper.getMainLooper()).postDelayed({
                 mBookViewModel.sensorXyzData.postValue(intArrayOf(x.toInt(),y.toInt(),z.toInt()))
-                Log.d(TAG, "onSensorChanged: ${x.toInt()} : ${y.toInt()} : ${z.toInt()}")
             }, 2000)
         }else if (event!!.sensor.type == Sensor.TYPE_PROXIMITY) {
             val proximity : Float = event?.values?.get(0) as Float
             Handler(Looper.getMainLooper()).postDelayed({
                 mBookViewModel.sensorProximityData.postValue(proximity.toInt())
             }, 2000)
-            Log.e(TAG, "onSensorChanged: $proximity")
         }
     }
 

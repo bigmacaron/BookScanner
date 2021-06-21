@@ -46,18 +46,20 @@
                     <!--                        android:visibility="@{title != null ? View.GONE : View.VISIBLE}"-->
                     <!--                        tools:visibility="visible"/>-->
 
-                    <!--                    <TextView-->
-                    <!--                        style="@style/"-->
-                    <!--                        android:id="@+id/tv_title"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="match_parent"-->
-                    <!--                        android:gravity="center"-->
-                    <!--                        android:textColor="@color/"-->
-                    <!--                        android:textSize="17sp"-->
-                    <!--                        android:text="@{title}"-->
-                    <!--                        android:visibility="@{title == null ? View.GONE : View.VISIBLE}"-->
-                    <!--                        tools:text=""-->
-                    <!--                        tools:visibility="gone" />-->
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/app_main_font"
+                        android:gravity="center"
+                        android:text="@string/app_name"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -81,6 +83,7 @@
             android:layout_gravity="bottom"
             android:background="@color/white"
             android:clipToPadding="false"
+            style="@style/BottomNavigation"
             app:itemIconTint="@color/selector_bottom_navigation"
             app:itemTextAppearanceActive="@style/BottomNavigation.Active"
             app:itemTextAppearanceInactive="@style/BottomNavigation"

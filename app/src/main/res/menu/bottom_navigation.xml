@@ -3,10 +3,12 @@
 
     <item android:id="@+id/action_timer"
         android:title="@string/content_nav_home"
+        android:fontFamily="@font/app_main_font"
         android:icon="@drawable/ic_main_watch"/>
 
     <item android:id="@+id/action_scanner"
         android:title="@string/content_nav_home2"
+        android:fontFamily="@font/app_main_font"
         android:icon="@drawable/ic_scan"/>
 
 </menu>

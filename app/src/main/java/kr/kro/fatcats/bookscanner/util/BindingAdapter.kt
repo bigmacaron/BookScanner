@@ -4,6 +4,10 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.view.Gravity.END
 import android.view.Gravity.START
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.RotateAnimation
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,6 +18,87 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.kro.fatcats.bookscanner.R
 import kr.kro.fatcats.bookscanner.model.BookInfo
 import java.util.*
+
+@BindingAdapter("bindTimer1")
+fun bindViewTimer1(view: TextView, values: Long?) {
+    val hour    = ((values?.div(1000))?.div(60))?.div(60)
+    val minutes = ((values?.div(1000))?.div(60))
+    val seconds = ((values?.div(1000))?.rem(60))
+    var timeLeftFormatted = String.format(Locale.getDefault(),  "%02d:%02d:%02d",hour, minutes, seconds)
+    if(seconds == null){
+        timeLeftFormatted = "00:00:00"
+    }
+    view.animate().rotationX(360F).rotationXBy(360F).setDuration(200).start()
+    view.text =  timeLeftFormatted.substring(0,1)
+}
+
+@BindingAdapter("bindTimer2")
+fun bindViewTimer2(view: TextView, values: Long?) {
+    val hour    = ((values?.div(1000))?.div(60))?.div(60)
+    val minutes = ((values?.div(1000))?.div(60))
+    val seconds = ((values?.div(1000))?.rem(60))
+    var timeLeftFormatted = String.format(Locale.getDefault(),  "%02d:%02d:%02d",hour, minutes, seconds)
+    if(seconds == null){
+        timeLeftFormatted = "00:00:00"
+    }
+    view.animate().rotationX(360F).rotationXBy(360F).setDuration(200).start()
+    view.text =  timeLeftFormatted.substring(1,2)
+}
+
+@BindingAdapter("bindTimer3")
+fun bindViewTimer3(view: TextView, values: Long?) {
+    val hour    = ((values?.div(1000))?.div(60))?.div(60)
+    val minutes = ((values?.div(1000))?.div(60))
+    val seconds = ((values?.div(1000))?.rem(60))
+    var timeLeftFormatted = String.format(Locale.getDefault(),  "%02d:%02d:%02d",hour, minutes, seconds)
+
+    if(seconds == null){
+        timeLeftFormatted = "00:00:00"
+    }
+    view.animate().rotationX(360F).rotationXBy(360F).setDuration(200).start()
+    view.text =  timeLeftFormatted.substring(3,4)
+}
+
+@BindingAdapter("bindTimer4")
+fun bindViewTimer4(view: TextView, values: Long?) {
+    val hour    = ((values?.div(1000))?.div(60))?.div(60)
+    val minutes = ((values?.div(1000))?.div(60))
+    val seconds = ((values?.div(1000))?.rem(60))
+    var timeLeftFormatted = String.format(Locale.getDefault(),  "%02d:%02d:%02d",hour, minutes, seconds)
+    if(seconds == null){
+        timeLeftFormatted = "00:00:00"
+    }
+    view.animate().rotationX(360F).rotationXBy(360F).setDuration(200).start()
+    view.text =  timeLeftFormatted.substring(4,5)
+}
+
+@BindingAdapter("bindTimer5")
+fun bindViewTimer5(view: TextView, values: Long?) {
+    val hour    = ((values?.div(1000))?.div(60))?.div(60)
+    val minutes = ((values?.div(1000))?.div(60))
+    val seconds = ((values?.div(1000))?.rem(60))
+    var timeLeftFormatted = String.format(Locale.getDefault(),  "%02d:%02d:%02d",hour, minutes, seconds)
+    if(seconds == null){
+        timeLeftFormatted = "00:00:00"
+    }
+    view.animate().rotationX(360F).rotationXBy(360F).setDuration(200).start()
+    view.text =  timeLeftFormatted.substring(6,7)
+}
+
+@BindingAdapter("bindTimer6")
+fun bindViewTimer6(view: TextView, values: Long?) {
+    val hour    = ((values?.div(1000))?.div(60))?.div(60)
+    val minutes = ((values?.div(1000))?.div(60))
+    val seconds = ((values?.div(1000))?.rem(60))
+    var timeLeftFormatted = String.format(Locale.getDefault(),  "%02d:%02d:%02d",hour, minutes, seconds)
+    if(seconds == null){
+        timeLeftFormatted = "00:00:00"
+    }
+    view.animate().rotationX(360F).rotationXBy(360F).setDuration(200).start()
+    view.text =  timeLeftFormatted.substring(7,8)
+
+}
+
 
 @SuppressLint("SetTextI18n")
 @BindingAdapter("bindDrawerTime")
@@ -35,13 +120,7 @@ fun bindViewTimerButtonText(view: TextView, values: Boolean?) {
 
 @SuppressLint("SetTextI18n")
 @BindingAdapter("bindTotalTime")
-fun bindViewTotalTime(view: TextView, values: String?) {
-    values?.let {
-        view.text = "${Constants.MainText.TOTAL_TIME_VIEW_TEXT} $values"
-    }
-}
-@BindingAdapter("bindTimer")
-fun bindViewTimer(view: TextView, values: Long?) {
+fun bindViewTotalTime(view: TextView, values: Long?) {
     val hour    = ((values?.div(1000))?.div(60))?.div(60)
     val minutes = ((values?.div(1000))?.div(60))
     val seconds = ((values?.div(1000))?.rem(60))
@@ -49,8 +128,22 @@ fun bindViewTimer(view: TextView, values: Long?) {
     if(seconds == null){
         timeLeftFormatted = "00:00:00"
     }
-        view.text = timeLeftFormatted
+    view.text =  Constants.MainText.TIME_VIEW_TEXT + timeLeftFormatted
 }
+
+//@SuppressLint("SetTextI18n")
+//@BindingAdapter("bindTimer")
+//fun bindViewTimer(view: TextView, values: Long?) {
+//    val hour    = ((values?.div(1000))?.div(60))?.div(60)
+//    val minutes = ((values?.div(1000))?.div(60))
+//    val seconds = ((values?.div(1000))?.rem(60))
+//    var timeLeftFormatted = String.format(Locale.getDefault(),  "%02d:%02d:%02d",hour, minutes, seconds)
+//    if(seconds == null){
+//        timeLeftFormatted = "00:00:00"
+//    }
+//        view.text =  timeLeftFormatted
+//}
+
 @BindingAdapter("bindDrawerType")
 fun bindViewDrawerType(view: FrameLayout, values: String?) {
     values?.let{

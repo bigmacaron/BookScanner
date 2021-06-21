@@ -23,31 +23,63 @@
             android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/imageView"
-                bindBookImage="@{url}"
-                android:layout_width="100dp"
-                android:layout_height="150dp"
-                android:contentDescription="@string/content_description_image_book"
-                android:src="@drawable/ic_book"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="60dp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_book"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="-30dp"
+                    app:cardCornerRadius="30dp">
+                    <ImageView
+                        android:id="@+id/iv_background"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/content_description_image_book_background"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/book_background"
+                        />
+                </androidx.cardview.widget.CardView>
+            </FrameLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/iv_book"
+                android:layout_width="100dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="125dp"
+                app:cardCornerRadius="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    bindBookImage="@{url}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/content_description_image_book"
+                    android:src="@drawable/ic_book" />
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/app_main_font"
                 android:text="@string/main_text_title"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="@+id/imageView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_book"
                 tools:text="제목    : " />
 
             <TextView
@@ -55,6 +87,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/app_main_font"
                 android:text="@{title}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView3"
@@ -67,6 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/main_text_author"
+                android:fontFamily="@font/app_main_font"
                 app:layout_constraintStart_toStartOf="@+id/textView3"
                 app:layout_constraintTop_toBottomOf="@+id/textView16"
                 tools:text="저자    : " />
@@ -76,6 +111,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/app_main_font"
                 android:text="@{author}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView4"
@@ -88,14 +125,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/main_text_publisher"
+                android:fontFamily="@font/app_main_font"
                 app:layout_constraintStart_toStartOf="@+id/textView3"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
                 tools:text="출판사 : " />
 
             <TextView
+                android:id="@+id/textView17"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/app_main_font"
                 android:text="@{publisher}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView5"
@@ -116,84 +157,229 @@
                 android:id="@+id/textView15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/background_round_border_gray"
+                android:fontFamily="@font/app_main_font"
                 android:gravity="center"
                 android:padding="3dp"
                 android:text="@string/content_timer_title"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="20dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:layout_editor_absoluteX="16dp" />
 
             <TextView
                 android:id="@+id/textView13"
-                bindTimer="@{totalTime}"
+                bindTotalTime="@{totalTime}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/app_main_font"
                 android:visibility="@{totalTime == null? View.GONE: View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView15" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_time_view"
-                android:layout_width="200dp"
-                android:layout_height="100dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="76dp"
-                android:layout_marginEnd="9dp"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:text="0"
-                bindTimer="@{timer}"
-                android:background="@drawable/background_round_border_gray"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView13" />
+                app:layout_constraintTop_toBottomOf="@+id/textView13">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/time1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:cardCornerRadius="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/time2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
+                    <TextView
+                        bindTimer1="@{timer}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@mipmap/timer_background"
+                        android:fontFamily="@font/app_main_font"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        tools:text="0"
+                         />
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/time2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:cardCornerRadius="4dp"
+                    app:layout_constraintEnd_toStartOf="@+id/textView19"
+                    app:layout_constraintStart_toEndOf="@+id/time1"
+                    app:layout_constraintTop_toTopOf="@+id/time1">
+                    <TextView
+                        bindTimer2="@{timer}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@mipmap/timer_background"
+                        android:fontFamily="@font/app_main_font"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        tools:text="0"
+                         />
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:fontFamily="@font/app_main_font"
+                    android:gravity="center"
+                    android:text=":"
+                    app:layout_constraintEnd_toStartOf="@+id/time3"
+                    app:layout_constraintStart_toEndOf="@+id/time2"
+                    app:layout_constraintTop_toTopOf="@+id/time1" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/time3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:cardCornerRadius="4dp"
+                    app:layout_constraintEnd_toStartOf="@+id/time4"
+                    app:layout_constraintStart_toEndOf="@+id/textView19"
+                    app:layout_constraintTop_toTopOf="@+id/time1">
+                    <TextView
+                        bindTimer3="@{timer}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@mipmap/timer_background"
+                        android:fontFamily="@font/app_main_font"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        tools:text="0"
+                         />
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/time4"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:cardCornerRadius="4dp"
+                    app:layout_constraintEnd_toStartOf="@+id/textView20"
+                    app:layout_constraintStart_toEndOf="@+id/time3"
+                    app:layout_constraintTop_toTopOf="@+id/time1">
+                    <TextView
+                        bindTimer4="@{timer}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@mipmap/timer_background"
+                        android:fontFamily="@font/app_main_font"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        tools:text="0"
+                        />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:fontFamily="@font/app_main_font"
+                    android:gravity="center"
+                    android:text=":"
+                    app:layout_constraintEnd_toStartOf="@+id/time5"
+                    app:layout_constraintStart_toEndOf="@+id/time4"
+                    app:layout_constraintTop_toTopOf="@+id/time2" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/time5"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:cardCornerRadius="4dp"
+                    app:layout_constraintEnd_toStartOf="@+id/time6"
+                    app:layout_constraintStart_toEndOf="@+id/textView20"
+                    app:layout_constraintTop_toTopOf="@+id/time1">
+                    <TextView
+                        bindTimer5="@{timer}"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@mipmap/timer_background"
+                        android:fontFamily="@font/app_main_font"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        tools:text="0"
+                        />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/time6"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:cardCornerRadius="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/time5"
+                    app:layout_constraintTop_toTopOf="@+id/time1">
+                    <TextView
+                        bindTimer6="@{timer}"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@mipmap/timer_background"
+                        android:fontFamily="@font/app_main_font"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        tools:text="0"
+                        />
+
+                </androidx.cardview.widget.CardView>
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tv_timer_start"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="50dp"
                 android:background="@drawable/background_round_border_gray"
                 android:clickable="true"
                 android:focusable="true"
+                android:fontFamily="@font/app_main_font"
                 android:gravity="center"
                 android:text="시작"
                 android:visibility="@{timerButton == false ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_time_view" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
             <TextView
                 android:id="@+id/tv_timer_pause"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="50dp"
                 android:background="@drawable/background_round_border_gray"
                 android:clickable="true"
                 android:focusable="true"
-                android:text="정지"
+                android:fontFamily="@font/app_main_font"
                 android:gravity="center"
+                android:text="정지"
                 android:visibility="@{timerButton == true ? View.VISIBLE : View.GONE}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_time_view" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
             <TextView
                 android:id="@+id/tv_save"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginEnd="50dp"
                 android:background="@drawable/background_round_border_gray"
                 android:clickable="true"
                 android:focusable="true"
+                android:fontFamily="@font/app_main_font"
                 android:gravity="center"
                 android:text="@string/main_text_btn_save"
                 android:visibility="@{timerButton == false ? View.VISIBLE : View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_time_view" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

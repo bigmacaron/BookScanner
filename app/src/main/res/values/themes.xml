@@ -4,8 +4,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/txt_medium_gray</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@android:color/transparent</item>
+        <item name="colorPrimaryVariant">@color/main_color</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -32,15 +32,16 @@
 
     <!-- BottomNavigationView Inactive -->
     <style name="BottomNavigation" parent="TextAppearance.AppCompat.Caption">
-<!--        <item name="fontFamily">@font/nanum_square_round_b</item>-->
-<!--        <item name="android:fontFamily">@font/nanum_square_round_b</item>-->
+        <item name="android:fontFamily">@font/app_main_font</item>
         <item name="android:color">@android:color/transparent</item>
-        <item name="android:textSize">11sp</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <!-- BottomNavigationView Active -->
     <style name="BottomNavigation.Active" parent="TextAppearance.AppCompat.Caption">
-        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/app_main_font</item>
+        <item name="android:color">@color/main_color</item>
+        <item name="android:textSize">13sp</item>
     </style>
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/fade_in_slide_up</item>

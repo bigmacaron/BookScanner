@@ -15,9 +15,10 @@ class Constants {
     }
     class MainText {
         companion object {
-            const val TOTAL_TIME_VIEW_TEXT = "총 읽은 시간 약: "
-            const val START                = "시작"
-            const val PAUSE                = "정지"
+            const val TOTAL_TIME_VIEW_TEXT  = "총 읽은 시간 약: "
+            const val TIME_VIEW_TEXT        = "지금 까지 읽은 시간 : "
+            const val START                 = "시작"
+            const val PAUSE                 = "정지"
         }
     }
 

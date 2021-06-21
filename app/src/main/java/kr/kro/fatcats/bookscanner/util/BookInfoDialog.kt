@@ -1,5 +1,6 @@
 package kr.kro.fatcats.bookscanner.util
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
@@ -34,6 +35,7 @@ class BookInfoDialog(context:Context)   {
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     fun myDialog(
         title: String?,
         url:String?,
@@ -72,6 +74,12 @@ class BookInfoDialog(context:Context)   {
             regBtnAnimation()
             onClickListener.onClick(Constants.DialogType.REGISTER)
         }
+//        val drawable = mContext.getDrawable(R.drawable.background_round_border_top_trans)
+//        binding.ivBackground.apply {
+//            background = drawable
+//            clipToOutline = true
+//        }
+
 
     }
 

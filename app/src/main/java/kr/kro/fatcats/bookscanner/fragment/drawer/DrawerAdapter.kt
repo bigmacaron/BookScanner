@@ -66,7 +66,7 @@ class DrawerAdapter (private val db : RoomBookInfoDao,context : Context):Recycle
     fun removeData(position: Int) {
         val alert : AlertDialog.Builder = AlertDialog.Builder(context)
         alert.setTitle("삭제")
-        alert.setMessage("삭제한 데이터는 복구가 불가능 합니다.삭제하시겠습니까?")
+        alert.setMessage("삭제한 데이터는 복구가 불가능 합니다. 삭제하시겠습니까?")
         alert.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
             runBlocking(Dispatchers.IO) {
                 Log.d("items","item =>${items[position].isbn}")
