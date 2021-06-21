@@ -36,7 +36,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         mPackageName = packageName
         playStoreVersionCheck()
-        next() // 릴리즈 배포시 주석
+//        next() // 릴리즈 배포시 주석
     }
 
     override fun onResume() {
@@ -56,7 +56,7 @@ class SplashActivity : AppCompatActivity() {
     private fun next() {
         Handler().postDelayed({
             finish()
-            startActivity(Intent(this,MainActivity::class.java))
+//            startActivity(Intent(this,MainActivity::class.java))
         }, delayTime)
 
     }

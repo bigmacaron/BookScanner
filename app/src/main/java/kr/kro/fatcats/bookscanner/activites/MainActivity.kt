@@ -1,6 +1,7 @@
 package kr.kro.fatcats.bookscanner.activites
 
 import android.content.Context
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, SensorE
         this.sensorXyzManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         this.sensorProximityManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         super.onCreate(savedInstanceState)
+        moveSplash()
         binding = ActivityMainBinding.inflate(layoutInflater).apply {
             this@MainActivity.let {
                 mBookViewModel = ViewModelProvider(this@MainActivity,BookViewModelFactory(BookRepository())).get(BookViewModel::class.java)
@@ -70,6 +72,11 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, SensorE
 
         initLiveData()
 
+    }
+
+    private fun moveSplash() {
+
+        startActivity(Intent(this, SplashActivity::class.java)) // 화면 생성 후 로딩화면으로 이동
     }
 
     private fun initLiveData(){

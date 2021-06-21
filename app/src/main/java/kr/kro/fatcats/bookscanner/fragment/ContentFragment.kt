@@ -98,7 +98,7 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
             Handler(Looper.getMainLooper()).postDelayed({
                 selectTimer()
                 (activity as MainActivity).closeDrawer()
-            }, 800)
+            }, 500)
         })
 
         mBookViewModel.sensorXyzData.observe(viewLifecycleOwner,{

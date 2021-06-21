@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">BookScanner</string>
-    <string name="content_timer_title">바코드를 스캔 하여 타이머에 등록하거나 \n 우측 상단 에서 선택할수 있습니다!</string>
+    <string name="content_timer_title">바코드를 스캔 하여 타이머에 등록하거나 \n 우측 상단 에서 선택할수 있습니다! \n책을 고른뒤 뒤집으면 타이머가 작동되고,\n화면이 어두워집니다.</string>
 
     <!-- Content Of Navigation -->
     <string name="content_drawer">네비게이션</string>
