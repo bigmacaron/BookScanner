@@ -14,7 +14,6 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.ads.MobileAds
 import kr.kro.fatcats.bookscanner.listeners.OnFragmentInteractionListener
 import kr.kro.fatcats.bookscanner.R
 import kr.kro.fatcats.bookscanner.api.BookRepository
@@ -43,7 +42,6 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, SensorE
         this.sensorProximityManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         super.onCreate(savedInstanceState)
         moveSplash()
-
         binding = ActivityMainBinding.inflate(layoutInflater).apply {
             this@MainActivity.let {
                 mBookViewModel = ViewModelProvider(this@MainActivity,BookViewModelFactory(BookRepository())).get(BookViewModel::class.java)
