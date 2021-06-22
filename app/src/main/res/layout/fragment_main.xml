@@ -193,8 +193,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView13">
                 <androidx.cardview.widget.CardView
                     android:id="@+id/time1"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     app:cardCornerRadius="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/time2"
@@ -206,7 +206,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:elevation="1dp"
-                        android:fontFamily="@font/app_main_font"
+                        android:textSize="18sp"
                         android:gravity="center"
                         android:textColor="@color/white"
                         tools:text="0"
@@ -220,8 +220,8 @@
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/time2"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     app:cardCornerRadius="4dp"
                     app:layout_constraintEnd_toStartOf="@+id/textView19"
                     app:layout_constraintStart_toEndOf="@+id/time1"
@@ -231,7 +231,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:elevation="1dp"
-                        android:fontFamily="@font/app_main_font"
+                        android:textSize="18sp"
                         android:gravity="center"
                         android:textColor="@color/white"
                         tools:text="0"
@@ -244,8 +244,8 @@
                 </androidx.cardview.widget.CardView>
                 <TextView
                     android:id="@+id/textView19"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:fontFamily="@font/app_main_font"
                     android:gravity="center"
                     android:text=":"
@@ -254,8 +254,8 @@
                     app:layout_constraintTop_toTopOf="@+id/time1" />
                 <androidx.cardview.widget.CardView
                     android:id="@+id/time3"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     app:cardCornerRadius="4dp"
                     app:layout_constraintEnd_toStartOf="@+id/time4"
                     app:layout_constraintStart_toEndOf="@+id/textView19"
@@ -265,7 +265,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:elevation="1dp"
-                        android:fontFamily="@font/app_main_font"
+                        android:textSize="18sp"
                         android:gravity="center"
                         android:textColor="@color/white"
                         tools:text="0"
@@ -278,8 +278,8 @@
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/time4"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     app:cardCornerRadius="4dp"
                     app:layout_constraintEnd_toStartOf="@+id/textView20"
                     app:layout_constraintStart_toEndOf="@+id/time3"
@@ -289,7 +289,7 @@
                         android:elevation="1dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/app_main_font"
+                        android:textSize="18sp"
                         android:gravity="center"
                         android:textColor="@color/white"
                         tools:text="0"
@@ -304,8 +304,8 @@
 
                 <TextView
                     android:id="@+id/textView20"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:fontFamily="@font/app_main_font"
                     android:gravity="center"
                     android:text=":"
@@ -314,8 +314,8 @@
                     app:layout_constraintTop_toTopOf="@+id/time2" />
                 <androidx.cardview.widget.CardView
                     android:id="@+id/time5"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     app:cardCornerRadius="4dp"
                     app:layout_constraintEnd_toStartOf="@+id/time6"
                     app:layout_constraintStart_toEndOf="@+id/textView20"
@@ -325,7 +325,7 @@
                         android:elevation="1dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/app_main_font"
+                        android:textSize="18sp"
                         android:gravity="center"
                         android:textColor="@color/white"
                         tools:text="0"
@@ -340,8 +340,8 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/time6"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     app:cardCornerRadius="4dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/time5"
@@ -351,7 +351,7 @@
                         android:elevation="1dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFamily="@font/app_main_font"
+                        android:textSize="18sp"
                         android:gravity="center"
                         android:textColor="@color/white"
                         tools:text="0"
