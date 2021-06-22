@@ -202,15 +202,20 @@
                     app:layout_constraintTop_toTopOf="parent"
                     >
                     <TextView
-                        bindTimer1="@{timer1}"
+                        bindTimer="@{timer1}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@mipmap/timer_background"
+                        android:elevation="1dp"
                         android:fontFamily="@font/app_main_font"
                         android:gravity="center"
                         android:textColor="@color/white"
                         tools:text="0"
                          />
+                    <ImageView
+                        bindTimer="@{timer1}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/timer_background"/>
 
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
@@ -222,15 +227,20 @@
                     app:layout_constraintStart_toEndOf="@+id/time1"
                     app:layout_constraintTop_toTopOf="@+id/time1">
                     <TextView
-                        bindTimer2="@{timer2}"
+                        bindTimer="@{timer2}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@mipmap/timer_background"
+                        android:elevation="1dp"
                         android:fontFamily="@font/app_main_font"
                         android:gravity="center"
                         android:textColor="@color/white"
                         tools:text="0"
                          />
+                    <ImageView
+                        bindTimer="@{timer2}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/timer_background"/>
                 </androidx.cardview.widget.CardView>
                 <TextView
                     android:id="@+id/textView19"
@@ -251,15 +261,20 @@
                     app:layout_constraintStart_toEndOf="@+id/textView19"
                     app:layout_constraintTop_toTopOf="@+id/time1">
                     <TextView
-                        bindTimer3="@{timer3}"
+                        bindTimer="@{timer3}"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@mipmap/timer_background"
+                        android:elevation="1dp"
                         android:fontFamily="@font/app_main_font"
                         android:gravity="center"
                         android:textColor="@color/white"
                         tools:text="0"
                          />
+                    <ImageView
+                        bindTimer="@{timer3}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/timer_background"/>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/time4"
@@ -270,15 +285,20 @@
                     app:layout_constraintStart_toEndOf="@+id/time3"
                     app:layout_constraintTop_toTopOf="@+id/time1">
                     <TextView
-                        bindTimer4="@{timer4}"
+                        bindTimer="@{timer4}"
+                        android:elevation="1dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@mipmap/timer_background"
                         android:fontFamily="@font/app_main_font"
                         android:gravity="center"
                         android:textColor="@color/white"
                         tools:text="0"
                         />
+                    <ImageView
+                        bindTimer="@{timer4}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/timer_background"/>
 
                 </androidx.cardview.widget.CardView>
 
@@ -301,15 +321,20 @@
                     app:layout_constraintStart_toEndOf="@+id/textView20"
                     app:layout_constraintTop_toTopOf="@+id/time1">
                     <TextView
-                        bindTimer5="@{timer5}"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@mipmap/timer_background"
+                        bindTimer="@{timer5}"
+                        android:elevation="1dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:fontFamily="@font/app_main_font"
                         android:gravity="center"
                         android:textColor="@color/white"
                         tools:text="0"
                         />
+                    <ImageView
+                        bindTimer="@{timer5}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/timer_background"/>
 
                 </androidx.cardview.widget.CardView>
 
@@ -322,16 +347,20 @@
                     app:layout_constraintStart_toEndOf="@+id/time5"
                     app:layout_constraintTop_toTopOf="@+id/time1">
                     <TextView
-                        bindTimer6="@{timer6}"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@mipmap/timer_background"
+                        bindTimer="@{timer6}"
+                        android:elevation="1dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:fontFamily="@font/app_main_font"
                         android:gravity="center"
                         android:textColor="@color/white"
                         tools:text="0"
                         />
-
+                    <ImageView
+                        bindTimer="@{timer6}"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/timer_background"/>
                 </androidx.cardview.widget.CardView>
 
 

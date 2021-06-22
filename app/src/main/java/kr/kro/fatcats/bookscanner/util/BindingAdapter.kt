@@ -1,13 +1,14 @@
 package kr.kro.fatcats.bookscanner.util
 
+import android.animation.Animator
 import android.annotation.SuppressLint
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Gravity.END
 import android.view.Gravity.START
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.view.animation.RotateAnimation
+import android.view.View
+import android.view.animation.*
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,66 +20,20 @@ import kr.kro.fatcats.bookscanner.R
 import kr.kro.fatcats.bookscanner.model.BookInfo
 import java.util.*
 
-@BindingAdapter("bindTimer1")
-fun bindViewTimer1(view: TextView, values: Long?) {
+@BindingAdapter("bindTimer")
+fun bindViewTimer(view: View, values: Long?) {
     var timeLeftFormatted : Long? = values
     if(timeLeftFormatted == null){
         timeLeftFormatted = 0L
     }
-    view.animate().rotationX(360F).rotationXBy(360F).setDuration(400).start()
-    view.text = "$timeLeftFormatted"
-}
-
-@BindingAdapter("bindTimer2")
-fun bindViewTimer2(view: TextView, values: Long?) {
-    var timeLeftFormatted : Long? = values
-    if(timeLeftFormatted == null){
-        timeLeftFormatted = 0L
+    if(view is TextView){
+        Handler(Looper.getMainLooper()).postDelayed({
+            view.text = "$timeLeftFormatted"
+        }, 100)
+    }else if(view is ImageView){
+        view.animate().rotationX(0F).rotationXBy(180f).setDuration(100).start()
     }
-    view.animate().rotationX(360F).rotationXBy(360F).setDuration(400).start()
-    view.text = "$timeLeftFormatted"
 }
-
-@BindingAdapter("bindTimer3")
-fun bindViewTimer3(view: TextView, values: Long?) {
-    var timeLeftFormatted : Long? = values
-    if(timeLeftFormatted == null){
-        timeLeftFormatted = 0L
-    }
-    view.animate().rotationX(360F).rotationXBy(360F).setDuration(400).start()
-    view.text = "$timeLeftFormatted"
-}
-
-@BindingAdapter("bindTimer4")
-fun bindViewTimer4(view: TextView, values: Long?) {
-    var timeLeftFormatted : Long? = values
-    if(timeLeftFormatted == null){
-        timeLeftFormatted = 0L
-    }
-    view.animate().rotationX(360F).rotationXBy(360F).setDuration(400).start()
-    view.text = "$timeLeftFormatted"
-}
-
-@BindingAdapter("bindTimer5")
-fun bindViewTimer5(view: TextView, values: Long?) {
-    var timeLeftFormatted : Long? = values
-    if(timeLeftFormatted == null){
-        timeLeftFormatted = 0L
-    }
-    view.animate().rotationX(360F).rotationXBy(360F).setDuration(400).start()
-    view.text = "$timeLeftFormatted"
-}
-
-@BindingAdapter("bindTimer6")
-fun bindViewTimer6(view: TextView, values: Long?) {
-    var timeLeftFormatted : Long? = values
-    if(timeLeftFormatted == null){
-        timeLeftFormatted = 0L
-    }
-    view.animate().rotationX(360F).rotationXBy(360F).setDuration(400).start()
-    view.text = "$timeLeftFormatted"
-}
-
 
 @SuppressLint("SetTextI18n")
 @BindingAdapter("bindDrawerTime")
