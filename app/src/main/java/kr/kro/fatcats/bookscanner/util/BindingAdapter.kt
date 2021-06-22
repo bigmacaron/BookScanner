@@ -29,9 +29,9 @@ fun bindViewTimer(view: View, values: Long?) {
     if(view is TextView){
         Handler(Looper.getMainLooper()).postDelayed({
             view.text = "$timeLeftFormatted"
-        }, 100)
+        }, 200)
     }else if(view is ImageView){
-        view.animate().rotationX(0F).rotationXBy(180f).setDuration(100).start()
+        view.animate().rotationX(0F).rotationXBy(180f).setDuration(200).start()
     }
 }
 
