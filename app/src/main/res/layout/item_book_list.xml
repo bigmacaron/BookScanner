@@ -142,41 +142,41 @@
                     android:id="@+id/textView10"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/app_main_font"
+                    android:singleLine="true"
                     android:text="@{data.ct_date}"
                     android:textSize="12sp"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:fontFamily="@font/app_main_font"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView7"
-                    app:layout_constraintTop_toTopOf="@+id/textView7"
-                    tools:text="2020-20-20" />
+                    app:layout_constraintStart_toStartOf="@+id/textView7"
+                    app:layout_constraintTop_toBottomOf="@+id/textView7"
+                    tools:text="2020-20-20 10 :25:26" />
 
                 <TextView
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/app_main_font"
                     android:text="@string/main_text_md_date"
                     android:textSize="12sp"
-                    android:fontFamily="@font/app_main_font"
                     app:layout_constraintStart_toStartOf="@+id/textView3"
-                    app:layout_constraintTop_toBottomOf="@+id/textView7"
+                    app:layout_constraintTop_toBottomOf="@+id/textView10"
                     tools:text="마지막 읽은 날짜 : " />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/app_main_font"
+                    android:singleLine="true"
                     android:text="@{data.mod_date}"
                     android:textSize="12sp"
-                    android:fontFamily="@font/app_main_font"
-                    android:ellipsize="end"
-                    android:singleLine="true"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView9"
-                    app:layout_constraintTop_toTopOf="@+id/textView9"
+                    app:layout_constraintStart_toStartOf="@+id/textView9"
+                    app:layout_constraintTop_toBottomOf="@+id/textView9"
                     tools:text="2020-20-20" />
 
                 <androidx.cardview.widget.CardView
