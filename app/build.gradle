@@ -13,8 +13,8 @@ android {
         applicationId "kr.kro.fatcats.bookscanner"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 30
-        versionName "0.3.0"
+        versionCode 100
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
