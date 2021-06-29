@@ -70,7 +70,6 @@ class MainFragment : Fragment(), CoroutineScope {
                 mBookViewModel.startTimer()
                 startTimer()
             }
-
         }
     }
     private fun timerPause(){

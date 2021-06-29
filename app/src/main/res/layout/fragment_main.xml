@@ -165,9 +165,25 @@
                 android:fontFamily="@font/app_main_font"
                 android:gravity="center"
                 android:padding="3dp"
+                android:textSize="10sp"
+                android:visibility="@{title == null ? View.VISIBLE: View.GONE}"
                 android:text="@string/content_timer_title"
+                app:layout_constraintBottom_toTopOf="@+id/textView18"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/app_main_font"
+                android:textSize="10sp"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="@string/content_timer_title2"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:layout_editor_absoluteX="16dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/textView13"

@@ -108,16 +108,29 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
                 }
             }
         })
-
-        mBookViewModel.sensorProximityData.observe(viewLifecycleOwner,{
-            mBookViewModel.sensorXyzData.value?.get(2)?.let { xyz->
-                if(xyz < -5 && it == 0){
+        mBookViewModel.sensorLightData.observe(viewLifecycleOwner,{
+            Log.e("sensorLightData","sensorLightData : $it")
+            if (it != null) {
+                if(it <= 50){
                     brightSetMin()
                 }else{
                     brightSetOrigin()
                 }
             }
+
         })
+
+//        mBookViewModel.sensorProximityData.observe(viewLifecycleOwner,{
+//            Log.e("sensorProximityData","sensorProximityData : $it")
+//            if (it != null) {
+//                if(it <= -4){
+//                    brightSetMin()
+//                }else{
+//                    brightSetOrigin()
+//                }
+//            }
+//
+//        })
     }
 
     private suspend fun startTimer(array : IntArray?) = withContext(Dispatchers.IO){
@@ -125,6 +138,9 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
         if (array?.get(2)!! < -5) {
             Log.e("startTimer" , "${array?.get(2)!!}")
             mBookViewModel.startTimer()
+            withContext(Dispatchers.Main){brightSetMin()}
+        }else{
+            withContext(Dispatchers.Main){brightSetOrigin()}
         }
     }
 

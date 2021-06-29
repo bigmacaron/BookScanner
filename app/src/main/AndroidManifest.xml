@@ -3,6 +3,7 @@
     package="kr.kro.fatcats.bookscanner">
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.hardware.sensor.proximity"/>
 
     <application
         android:name=".MyApplication"

@@ -23,23 +23,24 @@ import kr.kro.fatcats.bookscanner.fragment.drawer.DrawerFragment
 import kr.kro.fatcats.bookscanner.model.BookViewModel
 import kr.kro.fatcats.bookscanner.model.BookViewModelFactory
 import kr.kro.fatcats.bookscanner.util.Constants
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.noButton
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.yesButton
+import org.jetbrains.anko.*
 import java.util.*
 
 class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, SensorEventListener {
 
     private lateinit var sensorXyzManager: SensorManager
-    private lateinit var sensorProximityManager : SensorManager
+    private lateinit var sensorLightManager : SensorManager
+//    private lateinit var sensorProximityManager : SensorManager
+//    private lateinit var powerManager : PowerManager
+//    private lateinit var mWakeLock: PowerManager.WakeLock
     private lateinit var binding : ActivityMainBinding
     private var fragment: Fragment? = null
     private var ordSorFrag: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         this.sensorXyzManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        this.sensorProximityManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+//        this.sensorProximityManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        this.sensorLightManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         super.onCreate(savedInstanceState)
         moveSplash()
         binding = ActivityMainBinding.inflate(layoutInflater).apply {
@@ -49,6 +50,9 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, SensorE
                 lifecycleOwner = this@MainActivity
             }
         }
+//        powerManager = (applicationContext.getSystemService(Context.POWER_SERVICE) as PowerManager?)!!
+//        mWakeLock = powerManager.newWakeLock(PROXIMITY_SCREEN_OFF_WAKE_LOCK,TAG)
+//        mWakeLock.acquire()
         setContentView(binding.root)
         initView(savedInstanceState)
     }
@@ -131,15 +135,19 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, SensorE
 
     override fun onResume() {
         super.onResume()
+//        sensorProximityManager.registerListener(this,sensorProximityManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),SensorManager.SENSOR_DELAY_NORMAL)
         sensorXyzManager.registerListener(this,sensorXyzManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL)
-        sensorProximityManager.registerListener(this,sensorProximityManager.getDefaultSensor(Sensor.TYPE_PROXIMITY),SensorManager.SENSOR_DELAY_NORMAL)
+        sensorLightManager.registerListener(this,sensorLightManager.getDefaultSensor(Sensor.TYPE_LIGHT),SensorManager.SENSOR_DELAY_NORMAL)
+
 
     }
 
     override fun onPause() {
         super.onPause()
+//        sensorProximityManager.unregisterListener(this)
         sensorXyzManager.unregisterListener(this)
-        sensorProximityManager.unregisterListener(this)
+        sensorLightManager.unregisterListener(this)
+
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
@@ -150,12 +158,22 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, SensorE
             Handler(Looper.getMainLooper()).postDelayed({
                 mBookViewModel.sensorXyzData.postValue(intArrayOf(x.toInt(),y.toInt(),z.toInt()))
             }, 2000)
-        }else if (event!!.sensor.type == Sensor.TYPE_PROXIMITY) {
-            val proximity : Float = event?.values?.get(0) as Float
+        }
+        else if (event!!.sensor.type == Sensor.TYPE_LIGHT) {
+            val light : Float = event?.values?.get(0) as Float
             Handler(Looper.getMainLooper()).postDelayed({
-                mBookViewModel.sensorProximityData.postValue(proximity.toInt())
+                mBookViewModel.sensorLightData.postValue(light.toInt())
+                Log.e("light","In : ${light.toInt()}")
             }, 2000)
         }
+
+//        else if (event!!.sensor.type == Sensor.TYPE_PROXIMITY) {
+//            val proximity : Float = event?.values?.get(0) as Float
+//            Handler(Looper.getMainLooper()).postDelayed({
+//                mBookViewModel.sensorProximityData.postValue(proximity.toInt())
+//                Log.e("sensorProximityData","In : ${proximity.toInt()}")
+//            }, 2000)
+//        }
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {

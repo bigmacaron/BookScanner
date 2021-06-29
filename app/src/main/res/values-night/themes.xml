@@ -1,16 +1,50 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.BookScanner" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/main_color</item>
+        <item name="colorPrimaryVariant">@color/main_color</item>
+        <item name="colorOnPrimary">@color/main_color_bright</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondary">@color/main_color</item>
+        <item name="colorSecondaryVariant">@color/main_color</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!-- Full screen theme. -->
+    <style name="Theme.BookScanner.FullScreen">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- ActionBar Menu Margin -->
+    <style name="ActionBar" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:paddingRight">10dp</item>
+    </style>
+
+    <!-- BottomNavigationView Inactive -->
+    <style name="BottomNavigation" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:fontFamily">@font/app_main_font</item>
+        <item name="android:color">@android:color/transparent</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- BottomNavigationView Active -->
+    <style name="BottomNavigation.Active" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:fontFamily">@font/app_main_font</item>
+        <item name="android:color">@color/main_color</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/fade_in_slide_up</item>
+    </style>
+
 </resources>

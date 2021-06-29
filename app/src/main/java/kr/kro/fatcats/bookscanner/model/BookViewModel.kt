@@ -33,8 +33,9 @@ class BookViewModel(private val bookRepository: BookRepository?): ViewModel() ,C
     private val _totalTime =SingleLiveEvent<Long?>()
     private val _cameraStop = SingleLiveEvent<String?>()
     private val _fragment = SingleLiveEvent<String?>()
-    private val _sensorData = SingleLiveEvent<IntArray?>()
+    private val _sensorXyzData = SingleLiveEvent<IntArray?>()
     private val _startTimer = SingleLiveEvent<Boolean>()
+    private val _sensorProximityData = SingleLiveEvent<Int?>()
     private val _sensorLightData = SingleLiveEvent<Int?>()
 
     val barcodeData : SingleLiveEvent<String?>
@@ -66,8 +67,10 @@ class BookViewModel(private val bookRepository: BookRepository?): ViewModel() ,C
     val fragment : SingleLiveEvent<String?>
         get() = _fragment
     val sensorXyzData : SingleLiveEvent<IntArray?>
-        get() = _sensorData
+        get() = _sensorXyzData
     val sensorProximityData : SingleLiveEvent<Int?>
+        get() = _sensorProximityData
+    val sensorLightData : SingleLiveEvent<Int?>
         get() = _sensorLightData
     val startTimer : SingleLiveEvent<Boolean>
         get() = _startTimer
