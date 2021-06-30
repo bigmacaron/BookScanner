@@ -108,17 +108,17 @@ class ContentFragment : Fragment() , BottomNavigationView.OnNavigationItemSelect
                 }
             }
         })
+
         mBookViewModel.sensorLightData.observe(viewLifecycleOwner,{
-            Log.e("sensorLightData","sensorLightData : $it")
-            if (it != null) {
-                if(it <= 50){
+            mBookViewModel.sensorXyzData.value?.get(2)?.let { xyz->
+                if(xyz < -7 && it!! <= 30){
                     brightSetMin()
                 }else{
                     brightSetOrigin()
                 }
             }
-
         })
+
 
 //        mBookViewModel.sensorProximityData.observe(viewLifecycleOwner,{
 //            Log.e("sensorProximityData","sensorProximityData : $it")
