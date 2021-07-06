@@ -79,9 +79,10 @@
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:background="@color/black"
             app:adSize="BANNER"
             app:adUnitId="ca-app-pub-8156320750620852/3881110817"
             app:layout_constraintBottom_toBottomOf="parent"

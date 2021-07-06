@@ -83,10 +83,10 @@
             android:background="@color/white"
             android:clipToPadding="false"
             style="@style/BottomNavigation"
-            app:itemIconTint="@color/selector_bottom_navigation"
+            app:itemIconTint="@drawable/selector_bottom_navigation"
             app:itemTextAppearanceActive="@style/BottomNavigation.Active"
             app:itemTextAppearanceInactive="@style/BottomNavigation"
-            app:itemTextColor="@color/selector_bottom_navigation"
+            app:itemTextColor="@drawable/selector_bottom_navigation"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/bottom_navigation" />

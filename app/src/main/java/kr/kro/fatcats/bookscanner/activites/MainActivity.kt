@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity(), OnFragmentInteractionListener, SensorE
                 lifecycleOwner = this@MainActivity
             }
         }
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 //        powerManager = (applicationContext.getSystemService(Context.POWER_SERVICE) as PowerManager?)!!
 //        mWakeLock = powerManager.newWakeLock(PROXIMITY_SCREEN_OFF_WAKE_LOCK,TAG)
 //        mWakeLock.acquire()
