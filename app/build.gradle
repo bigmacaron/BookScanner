@@ -21,9 +21,9 @@ android {
     signingConfigs {
         release {
             storeFile file('Untitled') // 기준은 App 폴더 기준이다.
-            storePassword "rlatpa1@!@12"
+            storePassword ""
             keyAlias "key0"
-            keyPassword "rlatpa1@!@12"
+            keyPassword ""
         }
     }
 
